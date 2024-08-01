@@ -32,6 +32,8 @@
 		55619F782C5A8BD1007D52A9 /* Factory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55619F772C5A8BD1007D52A9 /* Factory.swift */; };
 		55619F7B2C5A971B007D52A9 /* Api.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55619F7A2C5A971B007D52A9 /* Api.swift */; };
 		55619F7D2C5A9A48007D52A9 /* ErrorHttp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55619F7C2C5A9A48007D52A9 /* ErrorHttp.swift */; };
+		55619FA12C5BBE10007D52A9 /* CryptoViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55619F8F2C5BBE10007D52A9 /* CryptoViewModelTests.swift */; };
+		55619FA92C5BC01F007D52A9 /* XCTestCase+Exts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55619FA72C5BC01F007D52A9 /* XCTestCase+Exts.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -80,6 +82,8 @@
 		55619F772C5A8BD1007D52A9 /* Factory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Factory.swift; sourceTree = "<group>"; };
 		55619F7A2C5A971B007D52A9 /* Api.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Api.swift; sourceTree = "<group>"; };
 		55619F7C2C5A9A48007D52A9 /* ErrorHttp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorHttp.swift; sourceTree = "<group>"; };
+		55619F8F2C5BBE10007D52A9 /* CryptoViewModelTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CryptoViewModelTests.swift; sourceTree = "<group>"; };
+		55619FA72C5BC01F007D52A9 /* XCTestCase+Exts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "XCTestCase+Exts.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -149,6 +153,7 @@
 		55619EE62C5A8232007D52A9 /* CryptoSpyTests */ = {
 			isa = PBXGroup;
 			children = (
+				55619F7E2C5BBDAC007D52A9 /* ListSection */,
 				55619EE72C5A8232007D52A9 /* CryptoSpyTests.swift */,
 			);
 			path = CryptoSpyTests;
@@ -317,6 +322,31 @@
 			path = Network;
 			sourceTree = "<group>";
 		};
+		55619F7E2C5BBDAC007D52A9 /* ListSection */ = {
+			isa = PBXGroup;
+			children = (
+				55619FA62C5BC01F007D52A9 /* Helpers */,
+				55619F8D2C5BBE10007D52A9 /* Presentation */,
+			);
+			path = ListSection;
+			sourceTree = "<group>";
+		};
+		55619F8D2C5BBE10007D52A9 /* Presentation */ = {
+			isa = PBXGroup;
+			children = (
+				55619F8F2C5BBE10007D52A9 /* CryptoViewModelTests.swift */,
+			);
+			path = Presentation;
+			sourceTree = "<group>";
+		};
+		55619FA62C5BC01F007D52A9 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				55619FA72C5BC01F007D52A9 /* XCTestCase+Exts.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -475,6 +505,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				55619EE82C5A8232007D52A9 /* CryptoSpyTests.swift in Sources */,
+				55619FA92C5BC01F007D52A9 /* XCTestCase+Exts.swift in Sources */,
+				55619FA12C5BBE10007D52A9 /* CryptoViewModelTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
