@@ -25,7 +25,7 @@ final class CryptoViewModelTests: XCTestCase {
     }
 
     @MainActor
-    func testHomeViewModel_whenOnAppear_CryptosArePopulatedWithLocalCryptos() async {
+    func testHomeViewModel_whenOnAppear_cryptosArePopulatedWithLocalCryptos() async {
         let sut = makeSUT()
         await sut.onAppearAction()
         XCTAssertEqual(sut.cryptos, [Self.crypto2])
