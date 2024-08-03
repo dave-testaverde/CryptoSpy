@@ -35,6 +35,7 @@
 		55619FA12C5BBE10007D52A9 /* CryptoViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55619F8F2C5BBE10007D52A9 /* CryptoViewModelTests.swift */; };
 		55619FA92C5BC01F007D52A9 /* XCTestCase+Exts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55619FA72C5BC01F007D52A9 /* XCTestCase+Exts.swift */; };
 		55619FAF2C5D12BC007D52A9 /* GetCryptosUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55619FAD2C5D12BC007D52A9 /* GetCryptosUseCaseTests.swift */; };
+		55619FB32C5EA28C007D52A9 /* GetCryptosRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55619FB12C5EA28B007D52A9 /* GetCryptosRepositoryTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -86,6 +87,7 @@
 		55619F8F2C5BBE10007D52A9 /* CryptoViewModelTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CryptoViewModelTests.swift; sourceTree = "<group>"; };
 		55619FA72C5BC01F007D52A9 /* XCTestCase+Exts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "XCTestCase+Exts.swift"; sourceTree = "<group>"; };
 		55619FAD2C5D12BC007D52A9 /* GetCryptosUseCaseTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetCryptosUseCaseTests.swift; sourceTree = "<group>"; };
+		55619FB12C5EA28B007D52A9 /* GetCryptosRepositoryTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetCryptosRepositoryTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -327,6 +329,7 @@
 		55619F7E2C5BBDAC007D52A9 /* ListSection */ = {
 			isa = PBXGroup;
 			children = (
+				55619FB02C5EA28B007D52A9 /* Data */,
 				55619FAB2C5D12BC007D52A9 /* Domain */,
 				55619FA62C5BC01F007D52A9 /* Helpers */,
 				55619F8D2C5BBE10007D52A9 /* Presentation */,
@@ -357,6 +360,14 @@
 			);
 			name = Domain;
 			path = "../../../../../../../../Downloads/SwiftUI-Clean-Architecture-example-with-unit-tests-main/MMATests/Domain";
+			sourceTree = "<group>";
+		};
+		55619FB02C5EA28B007D52A9 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				55619FB12C5EA28B007D52A9 /* GetCryptosRepositoryTests.swift */,
+			);
+			path = Data;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -517,6 +528,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				55619EE82C5A8232007D52A9 /* CryptoSpyTests.swift in Sources */,
+				55619FB32C5EA28C007D52A9 /* GetCryptosRepositoryTests.swift in Sources */,
 				55619FA92C5BC01F007D52A9 /* XCTestCase+Exts.swift in Sources */,
 				55619FAF2C5D12BC007D52A9 /* GetCryptosUseCaseTests.swift in Sources */,
 				55619FA12C5BBE10007D52A9 /* CryptoViewModelTests.swift in Sources */,
