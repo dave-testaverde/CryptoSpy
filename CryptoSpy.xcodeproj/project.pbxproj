@@ -39,6 +39,8 @@
 		55619FCD2C5FD743007D52A9 /* CryptosRemoteDataGatewayTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55619FCC2C5FD743007D52A9 /* CryptosRemoteDataGatewayTests.swift */; };
 		55619FCF2C5FD75A007D52A9 /* CryptosServiceImpTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55619FCE2C5FD75A007D52A9 /* CryptosServiceImpTests.swift */; };
 		55619FD12C5FD8B5007D52A9 /* URLProtocolStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55619FD02C5FD8B5007D52A9 /* URLProtocolStub.swift */; };
+		55619FD42C610067007D52A9 /* CryptosDbImpTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55619FD32C610067007D52A9 /* CryptosDbImpTests.swift */; };
+		55619FD62C610079007D52A9 /* CryptosDbDataGatewayTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55619FD52C610079007D52A9 /* CryptosDbDataGatewayTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -94,6 +96,8 @@
 		55619FCC2C5FD743007D52A9 /* CryptosRemoteDataGatewayTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CryptosRemoteDataGatewayTests.swift; sourceTree = "<group>"; };
 		55619FCE2C5FD75A007D52A9 /* CryptosServiceImpTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CryptosServiceImpTests.swift; sourceTree = "<group>"; };
 		55619FD02C5FD8B5007D52A9 /* URLProtocolStub.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLProtocolStub.swift; sourceTree = "<group>"; };
+		55619FD32C610067007D52A9 /* CryptosDbImpTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CryptosDbImpTests.swift; sourceTree = "<group>"; };
+		55619FD52C610079007D52A9 /* CryptosDbDataGatewayTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CryptosDbDataGatewayTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -381,6 +385,7 @@
 		55619FC82C5FD529007D52A9 /* Application */ = {
 			isa = PBXGroup;
 			children = (
+				55619FD22C610048007D52A9 /* Local */,
 				55619FCB2C5FD732007D52A9 /* Remote */,
 			);
 			path = Application;
@@ -393,6 +398,15 @@
 				55619FCE2C5FD75A007D52A9 /* CryptosServiceImpTests.swift */,
 			);
 			path = Remote;
+			sourceTree = "<group>";
+		};
+		55619FD22C610048007D52A9 /* Local */ = {
+			isa = PBXGroup;
+			children = (
+				55619FD32C610067007D52A9 /* CryptosDbImpTests.swift */,
+				55619FD52C610079007D52A9 /* CryptosDbDataGatewayTests.swift */,
+			);
+			path = Local;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -555,6 +569,8 @@
 				55619FCF2C5FD75A007D52A9 /* CryptosServiceImpTests.swift in Sources */,
 				55619EE82C5A8232007D52A9 /* CryptoSpyTests.swift in Sources */,
 				55619FB32C5EA28C007D52A9 /* GetCryptosRepositoryTests.swift in Sources */,
+				55619FD62C610079007D52A9 /* CryptosDbDataGatewayTests.swift in Sources */,
+				55619FD42C610067007D52A9 /* CryptosDbImpTests.swift in Sources */,
 				55619FD12C5FD8B5007D52A9 /* URLProtocolStub.swift in Sources */,
 				55619FA92C5BC01F007D52A9 /* XCTestCase+Exts.swift in Sources */,
 				55619FAF2C5D12BC007D52A9 /* GetCryptosUseCaseTests.swift in Sources */,
