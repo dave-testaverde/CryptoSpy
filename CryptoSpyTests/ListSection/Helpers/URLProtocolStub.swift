@@ -65,4 +65,3 @@ class URLProtocolStub: URLProtocol {
     
     override func stopLoading() {}
 }
-import Foundation

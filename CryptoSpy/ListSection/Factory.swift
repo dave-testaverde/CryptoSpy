@@ -7,6 +7,7 @@
 
 import Foundation
 
+@Observable
 class Factory {
     
     @MainActor static func makeListSection() -> CryptoViewModel {
@@ -19,4 +20,5 @@ class Factory {
         let cryptoViewModel = CryptoViewModel(getCryptosUseCase: getCryptosUseCase)
         return cryptoViewModel
     }
+    
 }

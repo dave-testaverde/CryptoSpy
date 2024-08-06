@@ -10,6 +10,7 @@ import SwiftUI
 struct CryptoListView: View {
     
     @Environment(CryptoViewModel.self) var viewModel
+    @Environment(Router.self) var router
     
     var body: some View {
         @Bindable var viewModel = viewModel
@@ -30,6 +31,9 @@ struct CryptoListView: View {
                             .foregroundStyle(
                                 (crypto.price_change_percentage_24h > 0) ? .green : .red
                             )
+                    }.onTapGesture {
+                        viewModel.cryptoSelected = crypto
+                        router.navigateTo(route: .cryptoSingleView)
                     }
                 }
             }

@@ -41,6 +41,10 @@
 		55619FD12C5FD8B5007D52A9 /* URLProtocolStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55619FD02C5FD8B5007D52A9 /* URLProtocolStub.swift */; };
 		55619FD42C610067007D52A9 /* CryptosDbImpTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55619FD32C610067007D52A9 /* CryptosDbImpTests.swift */; };
 		55619FD62C610079007D52A9 /* CryptosDbDataGatewayTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55619FD52C610079007D52A9 /* CryptosDbDataGatewayTests.swift */; };
+		55619FDB2C62AD90007D52A9 /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55619FD92C62AD90007D52A9 /* Router.swift */; };
+		55619FDC2C62AD90007D52A9 /* Route.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55619FDA2C62AD90007D52A9 /* Route.swift */; };
+		55619FDE2C62ADDB007D52A9 /* CryptoSingleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55619FDD2C62ADDB007D52A9 /* CryptoSingleView.swift */; };
+		55619FE02C62AE61007D52A9 /* RouterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55619FDF2C62AE61007D52A9 /* RouterView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -98,6 +102,10 @@
 		55619FD02C5FD8B5007D52A9 /* URLProtocolStub.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLProtocolStub.swift; sourceTree = "<group>"; };
 		55619FD32C610067007D52A9 /* CryptosDbImpTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CryptosDbImpTests.swift; sourceTree = "<group>"; };
 		55619FD52C610079007D52A9 /* CryptosDbDataGatewayTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CryptosDbDataGatewayTests.swift; sourceTree = "<group>"; };
+		55619FD92C62AD90007D52A9 /* Router.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
+		55619FDA2C62AD90007D52A9 /* Route.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Route.swift; sourceTree = "<group>"; };
+		55619FDD2C62ADDB007D52A9 /* CryptoSingleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CryptoSingleView.swift; sourceTree = "<group>"; };
+		55619FDF2C62AE61007D52A9 /* RouterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouterView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -258,6 +266,8 @@
 			isa = PBXGroup;
 			children = (
 				55619F422C5A8A1B007D52A9 /* List */,
+				55619FDD2C62ADDB007D52A9 /* CryptoSingleView.swift */,
+				55619FDF2C62AE61007D52A9 /* RouterView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -318,6 +328,7 @@
 		55619F762C5A8B57007D52A9 /* ListSection */ = {
 			isa = PBXGroup;
 			children = (
+				55619FD82C62AD90007D52A9 /* Router */,
 				55619F272C5A8A1B007D52A9 /* Presentation */,
 				55619F4C2C5A8A1B007D52A9 /* Data */,
 				55619F2A2C5A8A1B007D52A9 /* Domain */,
@@ -407,6 +418,15 @@
 				55619FD52C610079007D52A9 /* CryptosDbDataGatewayTests.swift */,
 			);
 			path = Local;
+			sourceTree = "<group>";
+		};
+		55619FD82C62AD90007D52A9 /* Router */ = {
+			isa = PBXGroup;
+			children = (
+				55619FD92C62AD90007D52A9 /* Router.swift */,
+				55619FDA2C62AD90007D52A9 /* Route.swift */,
+			);
+			path = Router;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -545,12 +565,16 @@
 				55619F782C5A8BD1007D52A9 /* Factory.swift in Sources */,
 				55619F7B2C5A971B007D52A9 /* Api.swift in Sources */,
 				55619F6E2C5A8A1B007D52A9 /* CryptosRemoteDataGateway.swift in Sources */,
+				55619FDE2C62ADDB007D52A9 /* CryptoSingleView.swift in Sources */,
 				55619F5C2C5A8A1B007D52A9 /* Crypto.swift in Sources */,
 				55619F642C5A8A1B007D52A9 /* CryptosDbDataGateway.swift in Sources */,
 				55619F572C5A8A1B007D52A9 /* CryptoViewModel.swift in Sources */,
 				55619F682C5A8A1B007D52A9 /* CryptoListView.swift in Sources */,
+				55619FDB2C62AD90007D52A9 /* Router.swift in Sources */,
 				55619F622C5A8A1B007D52A9 /* CryptosDbImp.swift in Sources */,
 				55619F5F2C5A8A1B007D52A9 /* GetCryptoError.swift in Sources */,
+				55619FDC2C62AD90007D52A9 /* Route.swift in Sources */,
+				55619FE02C62AE61007D52A9 /* RouterView.swift in Sources */,
 				55619F5A2C5A8A1B007D52A9 /* GetCryptoUseCase.swift in Sources */,
 				55619F602C5A8A1B007D52A9 /* UpdateCryptoError.swift in Sources */,
 				55619F742C5A8A1B007D52A9 /* CryptosDataSourceRemote.swift in Sources */,

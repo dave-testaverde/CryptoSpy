@@ -12,7 +12,7 @@ struct CryptoSpyApp: App {
     
     var body: some Scene {
         WindowGroup {
-            CryptoListView().environment(Factory.makeListSection())
+            RouterView()
         }
     }
     

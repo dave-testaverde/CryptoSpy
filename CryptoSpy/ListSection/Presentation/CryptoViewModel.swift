@@ -13,6 +13,8 @@ class CryptoViewModel {
     var cryptos = [Crypto]()
     var alertError: GetCryptoError?
     
+    var cryptoSelected: Crypto?
+    
     let getCryptosUseCase: GetCryptosUseCase
 
     init(getCryptosUseCase: GetCryptosUseCase) {
@@ -36,4 +38,6 @@ class CryptoViewModel {
     func refreshListAction() async {
         await getCryptos()
     }
+    
+    
 }
