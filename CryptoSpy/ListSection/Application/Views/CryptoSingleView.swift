@@ -14,6 +14,9 @@ struct CryptoSingleView: View {
     var body: some View {
         @Bindable var viewModel = viewModel
         VStack{
+            HStack{
+                Text(String(viewModel.cryptoSelected!.market_cap_rank)+"°")
+            }
             HStack {
                 AsyncImage(url: URL(string: viewModel.cryptoSelected!.image)) { image in
                     image.resizable()

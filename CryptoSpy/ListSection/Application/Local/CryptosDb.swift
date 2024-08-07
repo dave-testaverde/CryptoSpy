@@ -17,7 +17,7 @@ class CryptosDbStub: CryptosDb {
     let updateCryptosResult: Result<Void, UpdateCryptoError>
     
     init(
-        getCryptosResult: Result<[Crypto], GetCryptoError> = .success([Crypto(id: "StubDb", symbol: "crypto_coin", name: "CC", image: "", current_price: 1.0, price_change_percentage_24h: 1.0)]),
+        getCryptosResult: Result<[Crypto], GetCryptoError> = .success([Crypto(id: "StubDb", symbol: "crypto_coin", name: "CC", image: "", current_price: 1.0, price_change_percentage_24h: 1.0, market_cap_rank: 1)]),
         updateCryptosResult: Result<Void, UpdateCryptoError> = .success(())
     ) {
         self.getCryptosResult = getCryptosResult

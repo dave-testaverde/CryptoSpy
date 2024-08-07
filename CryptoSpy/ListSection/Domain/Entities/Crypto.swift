@@ -12,6 +12,7 @@ struct Crypto: Identifiable, Equatable {
     let image: String
     let current_price: Double
     let price_change_percentage_24h: Float
+    let market_cap_rank: Int
 }
 
 extension Crypto: Codable {}
