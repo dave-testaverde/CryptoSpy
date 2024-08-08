@@ -7,6 +7,8 @@
 
 import Foundation
 
+import RxSwift
+
 @MainActor
 @Observable
 class CryptoViewModel {
@@ -24,10 +26,10 @@ class CryptoViewModel {
     private func getCryptos() async {
         let CryptosResult = await getCryptosUseCase.getCryptos()
         switch CryptosResult {
-        case let .success(Cryptos):
-            self.cryptos = Cryptos
-        case let .failure(getCryptoError):
-            alertError = getCryptoError
+            case let .success(Cryptos):
+                self.cryptos = Cryptos
+            case let .failure(getCryptoError):
+                alertError = getCryptoError
         }
     }
 
