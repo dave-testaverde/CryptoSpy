@@ -14,41 +14,50 @@ struct CryptoListView: View {
     
     var body: some View {
         @Bindable var viewModel = viewModel
-        NavigationView {
-            List {
-                ForEach(viewModel.cryptos) { crypto in
-                    HStack {
-                        AsyncImage(url: URL(string: crypto.image)) { image in
-                            image.resizable()
-                        } placeholder: {
-                            Color.red
-                        }
-                        .frame(width: 50, height: 50)
-                        .clipShape(.rect(cornerRadius: 25))
-                        Text(crypto.name)
-                        Spacer()
-                        Text(String(crypto.current_price))
-                            .foregroundStyle(
-                                (crypto.price_change_percentage_24h > 0) ? .green : .red
-                            )
-                    }.onTapGesture {
-                        viewModel.cryptoSelected = crypto
-                        router.navigateTo(route: .cryptoSingleView)
-                    }
+        VStack{
+            VStack{
+                HStack{
+                    TextField("Search", text: $viewModel.searchPattern)
+                        .textFieldStyle(RoundedBorderTextFieldStyle())
                 }
             }
-            .sheet(item: $viewModel.alertError) { error in
-                Text(error.localizedDescription)
-            }
-            .scrollContentBackground(.hidden)
-            .navigationTitle("Cryptos")
-            .navigationBarTitle(Text("Cryptos"))
-            .task {
-                await viewModel.onAppearAction()
-            }
-            .refreshable {
-                Task {
-                    await viewModel.refreshListAction()
+            .frame(width: 350)
+            VStack{
+                List {
+                    ForEach(viewModel.getCryptos()) { crypto in
+                        HStack {
+                            AsyncImage(url: URL(string: crypto.image)) { image in
+                                image.resizable()
+                            } placeholder: {
+                                Color.red
+                            }
+                            .frame(width: 50, height: 50)
+                            .clipShape(.rect(cornerRadius: 25))
+                            Text(crypto.name)
+                            Spacer()
+                            Text("$"+String(crypto.current_price))
+                                .foregroundStyle(
+                                    (crypto.price_change_percentage_24h > 0) ? .green : .red
+                                )
+                        }.onTapGesture {
+                            viewModel.cryptoSelected = crypto
+                            router.navigateTo(route: .cryptoSingleView)
+                        }
+                    }
+                }
+                .sheet(item: $viewModel.alertError) { error in
+                    Text(error.localizedDescription)
+                }
+                .scrollContentBackground(.hidden)
+                .navigationTitle("Cryptos")
+                .navigationBarTitle(Text("Cryptos"))
+                .task {
+                    await viewModel.onAppearAction()
+                }
+                .refreshable {
+                    Task {
+                        await viewModel.refreshListAction()
+                    }
                 }
             }
         }
