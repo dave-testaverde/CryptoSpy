@@ -12,6 +12,8 @@ struct CryptoListView: View {
     @Environment(CryptoViewModel.self) var viewModel
     @Environment(Router.self) var router
     
+    @State private var showFavourites = true
+    
     var body: some View {
         @Bindable var viewModel = viewModel
         VStack{
@@ -19,7 +21,11 @@ struct CryptoListView: View {
                 HStack{
                     TextField("Search", text: $viewModel.searchPattern)
                         .textFieldStyle(RoundedBorderTextFieldStyle())
+                    Toggle(isOn: $showFavourites, label: {
+                        Image(systemName: "star.fill").foregroundColor(.yellow)
+                    })
                 }
+            
             }
             .frame(width: 350)
             VStack{
