@@ -23,9 +23,8 @@ struct CryptoListView: View {
                         .textFieldStyle(RoundedBorderTextFieldStyle())
                     Toggle(isOn: $showFavourites, label: {
                         Image(systemName: "star.fill").foregroundColor(.yellow)
-                    })
+                    }).frame(width: 70)
                 }
-            
             }
             .frame(width: 350)
             VStack{

@@ -11,9 +11,17 @@ struct CryptoSingleView: View {
     
     @Environment(CryptoViewModel.self) var viewModel
     
+    @State private var showFavourites = true
+    
     var body: some View {
         @Bindable var viewModel = viewModel
         VStack{
+            HStack{
+                Toggle(isOn: $showFavourites, label: {
+                    Image(systemName: "star.fill").foregroundColor(.yellow)
+                })
+            }
+            .frame(width: 70)
             HStack{
                 Text(String(viewModel.cryptoSelected!.market_cap_rank)+"°")
             }
