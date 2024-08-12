@@ -26,10 +26,6 @@ struct RouterView: View {
                             CryptoListView()
                                 .environment(cryptoViewModel)
                                 .environment(router)
-                        case .cryptoSingleView:
-                            CryptoSingleView()
-                                .environment(router)
-                                .environment(cryptoViewModel)
                     }
                 }
         }

@@ -9,5 +9,4 @@ import Foundation
 
 enum Route: Hashable {
     case cryptoListView
-    case cryptoSingleView
 }
