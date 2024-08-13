@@ -14,9 +14,13 @@ protocol CryptosService {
 class CryptosServiceStub: CryptosService {
     let fetchCryptosResult: Result<[Crypto], GetCryptoError>
     
-    init(
+    /*init(
         fetchCryptosResult: Result<[Crypto], GetCryptoError> = .success([Crypto(id: "Stub", symbol: "crypto_coin", name: "CC", image: "", current_price: 1.0, price_change_percentage_24h: -1.0, market_cap_rank: 2)])
     ) {
+        self.fetchCryptosResult = fetchCryptosResult
+    }*/
+    
+    init(fetchCryptosResult: Result<[Crypto], GetCryptoError>) {
         self.fetchCryptosResult = fetchCryptosResult
     }
     
