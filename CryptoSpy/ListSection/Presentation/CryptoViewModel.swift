@@ -12,7 +12,7 @@ import RxSwift
 @MainActor
 @Observable
 class CryptoViewModel {
-    private var cryptos = [Crypto]()
+    var cryptos = [Crypto]()
     var alertError: GetCryptoError?
     
     var cryptoSelected: Crypto?

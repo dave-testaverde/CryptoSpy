@@ -14,7 +14,7 @@ struct Crypto: Identifiable, Equatable {
     var price_change_percentage_24h: Float
     var market_cap_rank: Int
     
-    var favourites: Bool?
+    var favourites: Bool
     
     enum CodingKeys: String, CodingKey {
         case id = "id"
@@ -44,9 +44,9 @@ struct Crypto: Identifiable, Equatable {
         /// CoinGecko does not contain favourites key in json payload
         if values.contains(.favourites) {
             let favourites = try values.nestedContainer(keyedBy: CodingKeys.self, forKey: .favourites)
-            self.favourites = try favourites.decodeIfPresent(Bool.self, forKey: .favourites)
+            self.favourites = try favourites.decodeIfPresent(Bool.self, forKey: .favourites) ?? false
         } else {
-            self.favourites = nil
+            self.favourites = false
         }
     }
 }

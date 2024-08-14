@@ -30,9 +30,11 @@ struct CryptoListView: View {
                 .frame(width: 350)
                 VStack{
                     List {
-                        ForEach(viewModel.getCryptos()) { crypto in
+                        ForEach(viewModel.cryptos) { crypto in
                             NavigationLink {
-                                CryptoSingleView(crypto: crypto)
+                                CryptoSingleView(crypto: crypto).onAppear(perform: {
+                                    print(crypto)
+                                })
                             } label: {
                                 HStack {
                                     AsyncImage(url: URL(string: crypto.image)) { image in
@@ -59,7 +61,9 @@ struct CryptoListView: View {
                     .navigationTitle("Cryptos")
                     .navigationBarTitle(Text("Cryptos"))
                     .task {
-                        await viewModel.onAppearAction()
+                        if(viewModel.cryptos.isEmpty){
+                            await viewModel.onAppearAction()
+                        }
                     }
                     .refreshable {
                         Task {
