@@ -13,7 +13,6 @@ struct CryptoSingleView: View {
     var crypto: Crypto
     
     @Environment(CryptoViewModel.self) var viewModel
-    @State private var showFavourites = false
     
     var index: Int {
         viewModel.cryptos.firstIndex(

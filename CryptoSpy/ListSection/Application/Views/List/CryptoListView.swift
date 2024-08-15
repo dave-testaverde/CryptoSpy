@@ -30,7 +30,9 @@ struct CryptoListView: View {
                 .frame(width: 350)
                 VStack{
                     List {
-                        ForEach(viewModel.cryptos) { crypto in
+                        ForEach(viewModel.getCryptos().filter { crypto in
+                            crypto.favourites || !showFavourites
+                        }) { crypto in
                             NavigationLink {
                                 CryptoSingleView(crypto: crypto).onAppear(perform: {
                                     print(crypto)
