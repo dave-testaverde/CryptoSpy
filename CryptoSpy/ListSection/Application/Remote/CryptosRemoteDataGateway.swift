@@ -16,8 +16,8 @@ class CryptosRemoteDataGateway: CryptosDataSourceRemote {
         self.db = db
     }
     
-    func fetchCryptos() async -> Result<[Crypto], GetCryptoError> {
-        let fetchCryptosResponse = await service.fetchCryptos()
+    func fetchCryptos(currency: String) async -> Result<[Crypto], GetCryptoError> {
+        let fetchCryptosResponse = await service.fetchCryptos(currency: currency)
         switch fetchCryptosResponse {
         case let .success(Cryptos):
             let _ = await db.updateCryptos(with: Cryptos)

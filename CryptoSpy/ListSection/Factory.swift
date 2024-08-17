@@ -13,9 +13,18 @@ class Factory {
     @MainActor static func makeListSection() -> CryptoViewModel {
         let cryptosService = CryptosServiceImp()
         let cryptosDb = CryptosDbImp()
-        let cryptosDataSourceRemote = CryptosRemoteDataGateway(service: cryptosService, db: cryptosDb)
+        
+        let cryptosDataSourceRemote = CryptosRemoteDataGateway(
+            service: cryptosService,
+            db: cryptosDb
+        )
         let cryptosDataSourceLocal = CryptosDbDataGateway(db: cryptosDb)
-        let getCryptosSource = GetCryptosRepository(CryptosRemoteSource: cryptosDataSourceRemote, CryptosLocalSource: cryptosDataSourceLocal)
+        
+        let getCryptosSource = GetCryptosRepository(
+            CryptosRemoteSource: cryptosDataSourceRemote,
+            CryptosLocalSource: cryptosDataSourceLocal
+        )
+        
         let getCryptosUseCase = GetCryptosUseCase(source: getCryptosSource)
         let cryptoViewModel = CryptoViewModel(getCryptosUseCase: getCryptosUseCase)
         return cryptoViewModel

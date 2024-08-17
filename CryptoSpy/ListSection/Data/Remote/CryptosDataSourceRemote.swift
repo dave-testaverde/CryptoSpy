@@ -8,7 +8,7 @@
 import Foundation
 
 protocol CryptosDataSourceRemote {
-    func fetchCryptos() async -> Result<[Crypto], GetCryptoError>
+    func fetchCryptos(currency: String) async -> Result<[Crypto], GetCryptoError>
 }
 
 class CryptosDataSourceRemoteStub: CryptosDataSourceRemote {
@@ -18,7 +18,7 @@ class CryptosDataSourceRemoteStub: CryptosDataSourceRemote {
         self.response = response
     }
     
-    func fetchCryptos() -> Result<[Crypto], GetCryptoError> {
+    func fetchCryptos(currency: String) -> Result<[Crypto], GetCryptoError> {
         response
     }
 }

@@ -16,16 +16,16 @@ class GetCryptosRepository: GetCryptosSource {
         self.CryptosLocalSource = CryptosLocalSource
     }
     
-    func getCryptos() async -> Result<[Crypto], GetCryptoError> {
-        let CryptosLocalSourceResponse = await CryptosLocalSource.fetchCryptos()
+    func getCryptos(currency: String) async -> Result<[Crypto], GetCryptoError> {
+        let CryptosLocalSourceResponse = await CryptosRemoteSource.fetchCryptos(currency: currency)
         switch CryptosLocalSourceResponse {
         case let .success(Cryptos):
             if Cryptos.isEmpty {
-                return await CryptosRemoteSource.fetchCryptos()
+                return await CryptosLocalSource.fetchCryptos()
             }
             return CryptosLocalSourceResponse
         case .failure:
-            return await CryptosRemoteSource.fetchCryptos()
+            return await CryptosRemoteSource.fetchCryptos(currency: currency)
         }
     }
 }

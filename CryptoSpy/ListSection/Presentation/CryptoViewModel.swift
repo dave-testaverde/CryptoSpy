@@ -36,7 +36,7 @@ class CryptoViewModel {
     }
     
     private func getCryptos() async {
-        let cryptosResult = await getCryptosUseCase.getCryptos()
+        let cryptosResult = await getCryptosUseCase.getCryptos(currency: "gbp")
         switch cryptosResult {
             case let .success(cryptos):
                 self.cryptos = cryptos

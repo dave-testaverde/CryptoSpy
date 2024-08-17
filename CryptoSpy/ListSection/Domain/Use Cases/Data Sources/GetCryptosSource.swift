@@ -8,7 +8,7 @@
 import Foundation
 
 protocol GetCryptosSource {
-    func getCryptos() async -> Result<[Crypto], GetCryptoError>
+    func getCryptos(currency: String) async -> Result<[Crypto], GetCryptoError>
 }
 
 class GetCryptosSourceStub: GetCryptosSource {
@@ -18,7 +18,7 @@ class GetCryptosSourceStub: GetCryptosSource {
         self.response = response
     }
     
-    func getCryptos() -> Result<[Crypto], GetCryptoError> {
+    func getCryptos(currency: String) -> Result<[Crypto], GetCryptoError> {
         response
     }
 }

@@ -14,11 +14,11 @@ class GetCryptosUseCase {
         self.source = source
     }
     
-    func getCryptos() async -> Result<[Crypto], GetCryptoError> {
-        await source.getCryptos()
+    func getCryptos(currency: String) async -> Result<[Crypto], GetCryptoError> {
+        await source.getCryptos(currency: currency)
     }
     
-    func getCrypto() async -> Result<[Crypto], GetCryptoError> {
-        await source.getCryptos()
+    func getCrypto(currency: String) async -> Result<[Crypto], GetCryptoError> {
+        await source.getCryptos(currency: currency)
     }
 }
