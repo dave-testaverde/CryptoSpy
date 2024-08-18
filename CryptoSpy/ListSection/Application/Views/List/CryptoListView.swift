@@ -14,6 +14,8 @@ struct CryptoListView: View {
     
     @State private var showFavourites = false
     
+    @State private var currency = "USD"
+    
     var body: some View {
         @Bindable var viewModel = viewModel
         NavigationSplitView {
@@ -24,7 +26,25 @@ struct CryptoListView: View {
                             .textFieldStyle(RoundedBorderTextFieldStyle())
                         Toggle(isOn: $showFavourites, label: {
                             Image(systemName: "star.fill").foregroundColor(.yellow)
-                        }).frame(width: 70)
+                        })
+                        .frame(width: 70)
+                        .padding(.leading, 8)
+                        Menu {
+                            Picker("Languages", selection: $currency) {
+                                ForEach(["USD", "EUR", "GBP"], id: \.self) { curr in
+                                    Text(curr)
+                                }
+                            }
+                        } label: {
+                            Text(currency)
+                                .padding(.all, 12)
+                                .font(.system(size: 13))
+                                .foregroundColor(.white)
+                                .background(.blue)
+                                .cornerRadius(20)
+                        }
+                        .id(currency)
+                        .padding(.leading, 8)
                     }
                 }
                 .frame(width: 350)
