@@ -30,27 +30,27 @@ struct CryptoListView: View {
                         .frame(width: 70)
                         .padding(.leading, 8)
                         Menu {
-                            Picker("Languages", selection: $currency) {
-                                ForEach(["USD", "EUR", "GBP"], id: \.self) { curr in
+                            Picker("Currency", selection: $viewModel.currency) {
+                                ForEach(viewModel.currencyList, id: \.self) { curr in
                                     Text(curr)
                                 }
                             }
                         } label: {
-                            Text(currency)
+                            Text(viewModel.currency)
                                 .padding(.all, 12)
                                 .font(.system(size: 13))
                                 .foregroundColor(.white)
                                 .background(.blue)
                                 .cornerRadius(20)
                         }
-                        .id(currency)
+                        .id(viewModel.currency)
                         .padding(.leading, 8)
                     }
                 }
                 .frame(width: 350)
                 VStack{
                     List {
-                        ForEach(viewModel.getCryptos().filter { crypto in
+                        ForEach(viewModel.getCryptosList().filter { crypto in
                             crypto.favourites || !showFavourites
                         }) { crypto in
                             NavigationLink {

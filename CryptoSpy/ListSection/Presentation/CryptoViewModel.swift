@@ -24,6 +24,17 @@ class CryptoViewModel {
     
     var filteredMessages: [Crypto] = []
     
+    var currencyList: [String] = ["USD", "EUR", "GBP"]
+    
+    var currency: String = "USD" {
+        didSet {
+            Task {
+                await getCryptos()
+            }
+        }
+    }
+    
+    
     var searchPattern: String = "" {
         didSet {
             self.notifyEvent()
@@ -36,7 +47,7 @@ class CryptoViewModel {
     }
     
     private func getCryptos() async {
-        let cryptosResult = await getCryptosUseCase.getCryptos(currency: "gbp")
+        let cryptosResult = await getCryptosUseCase.getCryptos(currency: currency)
         switch cryptosResult {
             case let .success(cryptos):
                 self.cryptos = cryptos
@@ -45,7 +56,7 @@ class CryptoViewModel {
         }
     }
     
-    func getCryptos() -> [Crypto] {
+    func getCryptosList() -> [Crypto] {
         return (searchPattern.isEmpty) ? cryptos : filteredMessages
     }
 
