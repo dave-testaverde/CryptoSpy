@@ -8,3 +8,5 @@
 import Foundation
 
 let get_all_crypto_from_coingecko: String = "https://api.coingecko.com/api/v3/coins/markets?order=market_cap_desc&per_page=100&page=1&sparkline=false&vs_currency="
+let get_all_currencies_from_coingecko: String =
+    "https://api.coingecko.com/api/v3/simple/supported_vs_currencies"
