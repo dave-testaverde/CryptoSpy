@@ -16,7 +16,7 @@ class CryptosServiceImp: CryptosService {
     
     func fetchCryptos(currency: String) async -> Result<[Crypto], GetCryptoError> {
         print(currency)
-        let urlRequest = URLRequest(url: URL(string: get_all_crypto_from_coingecko + currency)!)
+        let urlRequest = URLRequest(url: URL(string: coingecko_get_all_crypto + currency)!)
         do {
             let (data, urlResponse) = try await urlSession.data(for: urlRequest)
             guard let urlResponse = urlResponse as? HTTPURLResponse else {
@@ -32,8 +32,8 @@ class CryptosServiceImp: CryptosService {
         }
     }
     
-    func fetchCurrencies() async -> Result<[Crypto], GetCryptoError> {
-        let urlRequest = URLRequest(url: URL(string: get_all_currencies_from_coingecko)!)
+    func fetchCurrencies() async -> Result<Currencies, GetCurrenciesError> {
+        let urlRequest = URLRequest(url: URL(string: coingecko_get_all_currencies)!)
         do {
             let (data, urlResponse) = try await urlSession.data(for: urlRequest)
             guard let urlResponse = urlResponse as? HTTPURLResponse else {
@@ -42,9 +42,11 @@ class CryptosServiceImp: CryptosService {
             guard urlResponse.statusCode == 200 else {
                 return .failure(.networkError(cause: http_response_error_was_not_200))
             }
-            let Cryptos = try JSONDecoder().decode([Crypto].self, from: data)
-            return .success(Cryptos)
+            let currencies = try JSONDecoder().decode([String].self, from: data)
+            print(Currencies(listSupported: currencies))
+            return .success(Currencies(listSupported: currencies))
         } catch {
+            print("error " + error.localizedDescription)
             return .failure(.networkError(cause: error.localizedDescription))
         }
     }

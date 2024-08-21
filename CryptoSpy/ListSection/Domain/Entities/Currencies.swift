@@ -6,5 +6,7 @@
 //
 
 struct Currencies: Equatable {
-    var listSupported: [String]
+    var listSupported: [String] = []
 }
+
+extension Currencies: Codable {}
