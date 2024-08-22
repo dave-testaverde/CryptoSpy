@@ -9,16 +9,23 @@ import Foundation
 
 protocol CryptosDataSourceRemote {
     func fetchCryptos(currency: String) async -> Result<[Crypto], GetCryptoError>
+    func fetchCurrencies() async -> Result<Currencies, GetCurrenciesError>
 }
 
 class CryptosDataSourceRemoteStub: CryptosDataSourceRemote {
-    let response: Result<[Crypto], GetCryptoError>
+    let responseCrypto: Result<[Crypto], GetCryptoError>
+    let responseCurrencies: Result<Currencies, GetCurrenciesError>
 
-    init(response: Result<[Crypto], GetCryptoError>) {
-        self.response = response
+    init(responseCrypto: Result<[Crypto], GetCryptoError>, responseCurrencies: Result<Currencies, GetCurrenciesError>) {
+        self.responseCrypto = responseCrypto
+        self.responseCurrencies = responseCurrencies
     }
     
     func fetchCryptos(currency: String) -> Result<[Crypto], GetCryptoError> {
-        response
+        responseCrypto
+    }
+    
+    func fetchCurrencies() -> Result<Currencies, GetCurrenciesError> {
+        responseCurrencies
     }
 }

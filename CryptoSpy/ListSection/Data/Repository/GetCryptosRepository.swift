@@ -8,24 +8,24 @@
 import Foundation
 
 class GetCryptosRepository: GetCryptosSource {
-    let CryptosRemoteSource: CryptosDataSourceRemote
-    let CryptosLocalSource: CryptosDataSourceLocal
+    let cryptosRemoteSource: CryptosDataSourceRemote
+    let cryptosLocalSource: CryptosDataSourceLocal
     
-    init(CryptosRemoteSource: CryptosDataSourceRemote, CryptosLocalSource: CryptosDataSourceLocal) {
-        self.CryptosRemoteSource = CryptosRemoteSource
-        self.CryptosLocalSource = CryptosLocalSource
+    init(cryptosRemoteSource: CryptosDataSourceRemote, cryptosLocalSource: CryptosDataSourceLocal) {
+        self.cryptosRemoteSource = cryptosRemoteSource
+        self.cryptosLocalSource = cryptosLocalSource
     }
     
     func getCryptos(currency: String) async -> Result<[Crypto], GetCryptoError> {
-        let CryptosLocalSourceResponse = await CryptosRemoteSource.fetchCryptos(currency: currency)
-        switch CryptosLocalSourceResponse {
-        case let .success(Cryptos):
-            if Cryptos.isEmpty {
-                return await CryptosLocalSource.fetchCryptos()
+        let cryptosRemoteSourceResponse = await cryptosRemoteSource.fetchCryptos(currency: currency)
+        switch cryptosRemoteSourceResponse {
+        case let .success(cryptos):
+            if cryptos.isEmpty {
+                return await cryptosLocalSource.fetchCryptos()
             }
-            return CryptosLocalSourceResponse
+            return cryptosRemoteSourceResponse
         case .failure:
-            return await CryptosRemoteSource.fetchCryptos(currency: currency)
+            return await cryptosRemoteSource.fetchCryptos(currency: currency)
         }
     }
 }

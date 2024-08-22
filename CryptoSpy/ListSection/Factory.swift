@@ -18,11 +18,12 @@ class Factory {
             service: cryptosService,
             db: cryptosDb
         )
+        
         let cryptosDataSourceLocal = CryptosDbDataGateway(db: cryptosDb)
         
         let getCryptosSource = GetCryptosRepository(
-            CryptosRemoteSource: cryptosDataSourceRemote,
-            CryptosLocalSource: cryptosDataSourceLocal
+            cryptosRemoteSource: cryptosDataSourceRemote,
+            cryptosLocalSource: cryptosDataSourceLocal
         )
         
         let getCryptosUseCase = GetCryptosUseCase(source: getCryptosSource)
