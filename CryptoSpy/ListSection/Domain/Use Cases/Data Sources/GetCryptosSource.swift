@@ -9,16 +9,24 @@ import Foundation
 
 protocol GetCryptosSource {
     func getCryptos(currency: String) async -> Result<[Crypto], GetCryptoError>
+    func getCurrencies() async -> Result<Currencies, GetCurrenciesError>
 }
 
 class GetCryptosSourceStub: GetCryptosSource {
-    let response: Result<[Crypto], GetCryptoError>
+    let responseCrypto: Result<[Crypto], GetCryptoError>
+    let responseCurrencies: Result<Currencies, GetCurrenciesError>
 
-    init(response: Result<[Crypto], GetCryptoError>) {
-        self.response = response
+    init(responseCrypto: Result<[Crypto], GetCryptoError>,
+         responseCurrencies: Result<Currencies, GetCurrenciesError>) {
+        self.responseCrypto = responseCrypto
+        self.responseCurrencies = responseCurrencies
     }
     
     func getCryptos(currency: String) -> Result<[Crypto], GetCryptoError> {
-        response
+        responseCrypto
+    }
+    
+    func getCurrencies() async -> Result<Currencies, GetCurrenciesError> {
+        responseCurrencies
     }
 }

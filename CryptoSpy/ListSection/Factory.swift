@@ -27,6 +27,7 @@ class Factory {
         )
         
         let getCryptosUseCase = GetCryptosUseCase(source: getCryptosSource)
+        
         let cryptoViewModel = CryptoViewModel(getCryptosUseCase: getCryptosUseCase)
         return cryptoViewModel
     }
