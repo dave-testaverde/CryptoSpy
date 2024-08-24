@@ -76,7 +76,7 @@ struct CryptoListView: View {
                             }
                         }
                     }
-                    .sheet(item: $viewModel.alertError) { error in
+                    .sheet(item: $viewModel.crypto_alertError) { error in
                         Text(error.localizedDescription)
                     }
                     .scrollContentBackground(.hidden)

@@ -13,7 +13,8 @@ import RxSwift
 @Observable
 class CryptoViewModel {
     var cryptos = [Crypto]()
-    var alertError: GetCryptoError?
+    var crypto_alertError: GetCryptoError?
+    var currencies_alertError: GetCurrenciesError?
     
     var cryptoSelected: Crypto?
     
@@ -52,7 +53,17 @@ class CryptoViewModel {
             case let .success(cryptos):
                 self.cryptos = cryptos
             case let .failure(getCryptoError):
-                alertError = getCryptoError
+                crypto_alertError = getCryptoError
+        }
+    }
+    
+    private func getCurrencies() async {
+        let currienciesResult = await getCryptosUseCase.getCurrencies()
+        switch currienciesResult {
+            case let .success(currencies):
+                self.currencyList = currencies.listSupported
+            case let .failure(getCurrenciesError):
+                currencies_alertError = getCurrenciesError
         }
     }
     
@@ -61,6 +72,7 @@ class CryptoViewModel {
     }
 
     func onAppearAction() async {
+        await getCurrencies()
         await getCryptos()
     }
     
