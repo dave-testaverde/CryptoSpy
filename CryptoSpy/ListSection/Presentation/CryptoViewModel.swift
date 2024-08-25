@@ -25,16 +25,15 @@ class CryptoViewModel {
     
     var filteredMessages: [Crypto] = []
     
-    var currencyList: [String] = ["USD", "EUR", "GBP"]
+    var currencies: Currencies = Currencies(listSupported: [])
     
-    var currency: String = "USD" {
+    var currency: String = "usd" {
         didSet {
             Task {
                 await getCryptos()
             }
         }
     }
-    
     
     var searchPattern: String = "" {
         didSet {
@@ -61,7 +60,8 @@ class CryptoViewModel {
         let currienciesResult = await getCryptosUseCase.getCurrencies()
         switch currienciesResult {
             case let .success(currencies):
-                self.currencyList = currencies.listSupported
+                self.currencies = currencies
+                self.currency = self.currencies.listSupported.first ?? "usd"
             case let .failure(getCurrenciesError):
                 currencies_alertError = getCurrenciesError
         }

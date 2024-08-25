@@ -31,7 +31,7 @@ struct CryptoListView: View {
                         .padding(.leading, 8)
                         Menu {
                             Picker("Currency", selection: $viewModel.currency) {
-                                ForEach(viewModel.currencyList, id: \.self) { curr in
+                                ForEach(viewModel.currencies.listSupported, id: \.self) { curr in
                                     Text(curr)
                                 }
                             }
