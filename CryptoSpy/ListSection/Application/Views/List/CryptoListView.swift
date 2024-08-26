@@ -68,7 +68,7 @@ struct CryptoListView: View {
                                     .clipShape(.rect(cornerRadius: 25))
                                     Text(crypto.name)
                                     Spacer()
-                                    Text("$"+String(crypto.current_price))
+                                    Text(String(crypto.current_price))
                                         .foregroundStyle(
                                             (crypto.price_change_percentage_24h > 0) ? .green : .red
                                         )

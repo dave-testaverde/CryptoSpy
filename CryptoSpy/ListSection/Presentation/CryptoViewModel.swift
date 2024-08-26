@@ -12,6 +12,8 @@ import RxSwift
 @MainActor
 @Observable
 class CryptoViewModel {
+    final let INIT_CURRENCY = "usd"
+    
     var cryptos = [Crypto]()
     var crypto_alertError: GetCryptoError?
     var currencies_alertError: GetCurrenciesError?
@@ -27,7 +29,7 @@ class CryptoViewModel {
     
     var currencies: Currencies = Currencies(listSupported: [])
     
-    var currency: String = "usd" {
+    var currency: String {
         didSet {
             Task {
                 await getCryptos()
@@ -37,12 +39,13 @@ class CryptoViewModel {
     
     var searchPattern: String = "" {
         didSet {
-            self.notifyEvent()
+            self.emit()
         }
     }
 
     init(getCryptosUseCase: GetCryptosUseCase) {
         self.getCryptosUseCase = getCryptosUseCase
+        self.currency = INIT_CURRENCY
         initRxComponents()
     }
     
@@ -61,7 +64,7 @@ class CryptoViewModel {
         switch currienciesResult {
             case let .success(currencies):
                 self.currencies = currencies
-                self.currency = self.currencies.listSupported.first ?? "usd"
+                self.currency = self.currencies.listSupported.first ?? INIT_CURRENCY
             case let .failure(getCurrenciesError):
                 currencies_alertError = getCurrenciesError
         }
@@ -80,7 +83,7 @@ class CryptoViewModel {
         await getCryptos()
     }
     
-    private func notifyEvent() {
+    private func emit() {
         reducer.onNext(self.searchPattern)
     }
     

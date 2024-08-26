@@ -46,6 +46,9 @@
 		55619FDC2C62AD90007D52A9 /* Route.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55619FDA2C62AD90007D52A9 /* Route.swift */; };
 		55619FDE2C62ADDB007D52A9 /* CryptoSingleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55619FDD2C62ADDB007D52A9 /* CryptoSingleView.swift */; };
 		55619FE02C62AE61007D52A9 /* RouterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55619FDF2C62AE61007D52A9 /* RouterView.swift */; };
+		55619FE62C6D5270007D52A9 /* FavouritesButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55619FE52C6D526F007D52A9 /* FavouritesButton.swift */; };
+		55619FE92C75303C007D52A9 /* Currencies.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55619FE82C75303C007D52A9 /* Currencies.swift */; };
+		55619FEB2C758532007D52A9 /* GetCurrenciesError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55619FEA2C758532007D52A9 /* GetCurrenciesError.swift */; };
 		5B1451ED7F3302778FBAC102 /* Pods_CryptoSpy_CryptoSpyUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D075B46D47B5E345087DB275 /* Pods_CryptoSpy_CryptoSpyUITests.framework */; };
 		ECF20727538F184DA0C6A5E8 /* Pods_CryptoSpy.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B0C3B607A6939A48C516AB29 /* Pods_CryptoSpy.framework */; };
 /* End PBXBuildFile section */
@@ -112,6 +115,9 @@
 		55619FDA2C62AD90007D52A9 /* Route.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Route.swift; sourceTree = "<group>"; };
 		55619FDD2C62ADDB007D52A9 /* CryptoSingleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CryptoSingleView.swift; sourceTree = "<group>"; };
 		55619FDF2C62AE61007D52A9 /* RouterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouterView.swift; sourceTree = "<group>"; };
+		55619FE52C6D526F007D52A9 /* FavouritesButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouritesButton.swift; sourceTree = "<group>"; };
+		55619FE82C75303C007D52A9 /* Currencies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Currencies.swift; sourceTree = "<group>"; };
+		55619FEA2C758532007D52A9 /* GetCurrenciesError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetCurrenciesError.swift; sourceTree = "<group>"; };
 		56D636F08FE8C532B3D136E0 /* Pods-CryptoSpy-CryptoSpyUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CryptoSpy-CryptoSpyUITests.debug.xcconfig"; path = "Target Support Files/Pods-CryptoSpy-CryptoSpyUITests/Pods-CryptoSpy-CryptoSpyUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		84F3546D2EB58235B67386F1 /* Pods-CryptoSpy-CryptoSpyUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CryptoSpy-CryptoSpyUITests.release.xcconfig"; path = "Target Support Files/Pods-CryptoSpy-CryptoSpyUITests/Pods-CryptoSpy-CryptoSpyUITests.release.xcconfig"; sourceTree = "<group>"; };
 		B0AD76E6B8B5289F6D001E98 /* Pods-CryptoSpyTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CryptoSpyTests.debug.xcconfig"; path = "Target Support Files/Pods-CryptoSpyTests/Pods-CryptoSpyTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -245,6 +251,7 @@
 			isa = PBXGroup;
 			children = (
 				55619F322C5A8A1B007D52A9 /* Crypto.swift */,
+				55619FE82C75303C007D52A9 /* Currencies.swift */,
 				55619F342C5A8A1B007D52A9 /* Errors */,
 			);
 			path = Entities;
@@ -254,6 +261,7 @@
 			isa = PBXGroup;
 			children = (
 				55619F362C5A8A1B007D52A9 /* GetCryptoError.swift */,
+				55619FEA2C758532007D52A9 /* GetCurrenciesError.swift */,
 				55619F372C5A8A1B007D52A9 /* UpdateCryptoError.swift */,
 			);
 			path = Errors;
@@ -282,6 +290,7 @@
 		55619F412C5A8A1B007D52A9 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				55619FE42C6D523C007D52A9 /* Partial */,
 				55619F422C5A8A1B007D52A9 /* List */,
 				55619FDD2C62ADDB007D52A9 /* CryptoSingleView.swift */,
 				55619FDF2C62AE61007D52A9 /* RouterView.swift */,
@@ -444,6 +453,14 @@
 				55619FDA2C62AD90007D52A9 /* Route.swift */,
 			);
 			path = Router;
+			sourceTree = "<group>";
+		};
+		55619FE42C6D523C007D52A9 /* Partial */ = {
+			isa = PBXGroup;
+			children = (
+				55619FE52C6D526F007D52A9 /* FavouritesButton.swift */,
+			);
+			path = Partial;
 			sourceTree = "<group>";
 		};
 		D04942BB28F7BF6333EE881F /* Frameworks */ = {
@@ -715,18 +732,21 @@
 				55619F6E2C5A8A1B007D52A9 /* CryptosRemoteDataGateway.swift in Sources */,
 				55619FDE2C62ADDB007D52A9 /* CryptoSingleView.swift in Sources */,
 				55619F5C2C5A8A1B007D52A9 /* Crypto.swift in Sources */,
+				55619FE92C75303C007D52A9 /* Currencies.swift in Sources */,
 				55619F642C5A8A1B007D52A9 /* CryptosDbDataGateway.swift in Sources */,
 				55619F572C5A8A1B007D52A9 /* CryptoViewModel.swift in Sources */,
 				55619F682C5A8A1B007D52A9 /* CryptoListView.swift in Sources */,
 				55619FDB2C62AD90007D52A9 /* Router.swift in Sources */,
 				55619F622C5A8A1B007D52A9 /* CryptosDbImp.swift in Sources */,
 				55619F5F2C5A8A1B007D52A9 /* GetCryptoError.swift in Sources */,
+				55619FEB2C758532007D52A9 /* GetCurrenciesError.swift in Sources */,
 				55619FDC2C62AD90007D52A9 /* Route.swift in Sources */,
 				55619FE02C62AE61007D52A9 /* RouterView.swift in Sources */,
 				55619F5A2C5A8A1B007D52A9 /* GetCryptoUseCase.swift in Sources */,
 				55619F602C5A8A1B007D52A9 /* UpdateCryptoError.swift in Sources */,
 				55619F742C5A8A1B007D52A9 /* CryptosDataSourceRemote.swift in Sources */,
 				55619F0C2C5A872E007D52A9 /* CryptoSpyApp.swift in Sources */,
+				55619FE62C6D5270007D52A9 /* FavouritesButton.swift in Sources */,
 				55619F712C5A8A1B007D52A9 /* GetCryptosRepository.swift in Sources */,
 				55619F6F2C5A8A1B007D52A9 /* CryptosServiceImpl.swift in Sources */,
 				55619F662C5A8A1B007D52A9 /* CryptosDb.swift in Sources */,

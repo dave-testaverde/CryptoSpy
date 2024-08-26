@@ -24,8 +24,6 @@ struct RouterView: View {
                     switch route {
                         case .cryptoListView:
                             CryptoListView()
-                                .environment(cryptoViewModel)
-                                .environment(router)
                     }
                 }
         }

@@ -26,16 +26,10 @@ struct CryptoSingleView: View {
         @Bindable var viewModel = viewModel
         VStack{
             HStack{
-                Text("Favourite")
-                FavouritesButton(
-                    isSet: $viewModel.cryptos[index].favourites
-                )
-            }
-            .frame(width: 130)
-            HStack{
+                Text("Position")
                 Text(String(crypto.market_cap_rank)+"°")
             }
-            HStack {
+            HStack{
                 AsyncImage(url: URL(string: crypto.image)) { image in
                     image.resizable()
                 } placeholder: {
@@ -44,6 +38,15 @@ struct CryptoSingleView: View {
                 .frame(width: 50, height: 50)
                 .clipShape(.rect(cornerRadius: 25))
                 Text(crypto.name)
+                
+                
+                HStack{
+                    Text("Favourite")
+                    FavouritesButton(
+                        isSet: $viewModel.cryptos[index].favourites
+                    )
+                }
+                .frame(width: 130)
             }
             HStack{
                 Text(String(crypto.current_price))
@@ -51,12 +54,11 @@ struct CryptoSingleView: View {
                         (crypto.price_change_percentage_24h > 0) ? .green : .red
                     )
                     .padding(.all, 15)
-                Text("USD")
+                Text(viewModel.currency)
                     .foregroundStyle(
                         (crypto.price_change_percentage_24h > 0) ? .green : .red
                     )
             }
         }
-                
     }
 }
