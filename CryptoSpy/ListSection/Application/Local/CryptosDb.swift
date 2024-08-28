@@ -16,18 +16,18 @@ class CryptosDbStub: CryptosDb {
     let getCryptosResult: Result<[Crypto], GetCryptoError>
     let updateCryptosResult: Result<Void, UpdateCryptoError>
     
-    /*init(
-        getCryptosResult: Result<[Crypto], GetCryptoError> = .success([Crypto(id: "StubDb", symbol: "crypto_coin", name: "CC", image: "", current_price: 1.0, price_change_percentage_24h: 1.0, market_cap_rank: 1)]),
+    init(
+        getCryptosResult: Result<[Crypto], GetCryptoError> = .success([Crypto(id: "", symbol: "bitcoin", name: "", image: "", current_price: 50000.0, price_change_percentage_24h: 10.0, market_cap_rank: 1, favourites: false)]),
         updateCryptosResult: Result<Void, UpdateCryptoError> = .success(())
     ) {
         self.getCryptosResult = getCryptosResult
         self.updateCryptosResult = updateCryptosResult
-    }*/
+    }
     
-    init(getCryptosResult: Result<[Crypto], GetCryptoError>, updateCryptosResult: Result<Void, UpdateCryptoError>) {
+    /*init(getCryptosResult: Result<[Crypto], GetCryptoError>, updateCryptosResult: Result<Void, UpdateCryptoError>) {
         self.getCryptosResult = getCryptosResult
         self.updateCryptosResult = updateCryptosResult
-    }
+    }*/
     
     func getCryptos() async -> Result<[Crypto], GetCryptoError> {
         getCryptosResult

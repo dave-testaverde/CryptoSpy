@@ -18,7 +18,7 @@ class CryptosServiceStub: CryptosService {
     
     init(
         fetchCryptosResult: Result<[Crypto], GetCryptoError> = .success([Crypto(id: "", symbol: "bitcoin", name: "", image: "", current_price: 50000.0, price_change_percentage_24h: 10.0, market_cap_rank: 1, favourites: false)]),
-        fetchCurrenciesResult: Result<Currencies, GetCurrenciesError>
+        fetchCurrenciesResult: Result<Currencies, GetCurrenciesError> = .success(Currencies(listSupported: ["usd", "eur", "gbp"]))
     ) {
         self.fetchCryptosResult = fetchCryptosResult
         self.fetchCurrenciesResult = fetchCurrenciesResult

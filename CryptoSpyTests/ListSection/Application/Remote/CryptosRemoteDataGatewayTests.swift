@@ -38,14 +38,14 @@ final class CryptosRemoteDataGatewayTests: XCTestCase {
         case .success:
             XCTFail("Request should have failed")
         case let .failure(error):
-            XCTAssertEqual(error, remoteStorageError)
+            XCTAssertEqual(error, cryptoRemoteStorageError)
         }
     }
 
     func testCryptosRemoteDataGateway_whenResultIsSuccessful_updatesDbCryptos() async {
         let cryptosDbSpy = CryptosDbSpy()
         let sut = makeSUT(db: cryptosDbSpy)
-        let cryptosResult = await sut.fetchCryptos()
+        let cryptosResult = await sut.fetchCryptos(currency: "usd")
         XCTAssertTrue(cryptosDbSpy.didUpdateCryptos)
     }
     
