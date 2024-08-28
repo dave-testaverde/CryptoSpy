@@ -49,6 +49,17 @@ struct Crypto: Identifiable, Equatable {
             self.favourites = false
         }
     }
+    
+    init(id: String, symbol: String, name: String, image: String, current_price: Double, price_change_percentage_24h: Float, market_cap_rank: Int, favourites: Bool){
+        self.id = id
+        self.symbol = symbol
+        self.name = name
+        self.image = image
+        self.current_price = current_price
+        self.price_change_percentage_24h = price_change_percentage_24h
+        self.market_cap_rank = market_cap_rank
+        self.favourites = favourites
+    }
 }
 
 extension Crypto: Codable {}

@@ -9,9 +9,8 @@ import XCTest
 @testable import CryptoSpy
 
 final class CryptosServiceImpTests: XCTestCase {
-    
-    static let crypto = Crypto(id: "", symbol: "bitcoin", name: "BTC", image: "", current_price: 1.0, price_change_percentage_24h: 1.0)
-    static let crypto2 = Crypto(id: "", symbol: "etherum", name: "ETH", image: "", current_price: 1.0, price_change_percentage_24h: 1.0)
+    static let crypto = Crypto(id: "", symbol: "bitcoin", name: "", image: "", current_price: 50000.0, price_change_percentage_24h: 10.0, market_cap_rank: 1, favourites: false)
+    static let crypto2 = Crypto(id: "", symbol: "etherum", name: "", image: "", current_price: 2400.0, price_change_percentage_24h: 10.0, market_cap_rank: 1, favourites: false)
     
     override func tearDown() {
         super.tearDown()
@@ -20,18 +19,22 @@ final class CryptosServiceImpTests: XCTestCase {
     }
     
     func testCryptosServiceImp_whenFetchingCryptosRequestSucceeds_returnsCryptos() async {
-        let url = URL(string: get_all_crypto_from_coingecko)!
+        let url = URL(string: coingecko_get_all_crypto)!
         
-        let cryptoList = [Self.crypto, Self.crypto2]
+        let cryptoList = [
+            Self.crypto,
+            Self.crypto2
+        ]
+        
         let encodedCryptoList = try? JSONEncoder().encode(cryptoList.self)
         let urlResponse = HTTPURLResponse(url: url, statusCode: 200, httpVersion: nil, headerFields: nil)!
         URLProtocolStub.stub(data: encodedCryptoList, response: urlResponse, error: nil)
         
         let sut = makeSUT()
-        let cryptosResult = await sut.fetchCryptos()
+        let cryptosResult = await sut.fetchCryptos(currency: "usd")
         switch cryptosResult {
-        case let .success(Cryptos):
-            XCTAssertEqual(Cryptos, cryptoList)
+        case let .success(cryptos):
+            XCTAssertEqual(cryptos, cryptoList)
         default:
             XCTFail("Request should have succeded")
         }
