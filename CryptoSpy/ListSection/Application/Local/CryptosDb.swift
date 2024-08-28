@@ -24,11 +24,6 @@ class CryptosDbStub: CryptosDb {
         self.updateCryptosResult = updateCryptosResult
     }
     
-    /*init(getCryptosResult: Result<[Crypto], GetCryptoError>, updateCryptosResult: Result<Void, UpdateCryptoError>) {
-        self.getCryptosResult = getCryptosResult
-        self.updateCryptosResult = updateCryptosResult
-    }*/
-    
     func getCryptos() async -> Result<[Crypto], GetCryptoError> {
         getCryptosResult
     }

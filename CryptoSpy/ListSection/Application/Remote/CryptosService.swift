@@ -24,12 +24,6 @@ class CryptosServiceStub: CryptosService {
         self.fetchCurrenciesResult = fetchCurrenciesResult
     }
     
-    /*init(fetchCryptosResult: Result<[Crypto], GetCryptoError>,
-         fetchCurrenciesResult: Result<Currencies, GetCurrenciesError>) {
-        self.fetchCryptosResult = fetchCryptosResult
-        self.fetchCurrenciesResult = fetchCurrenciesResult
-    }*/
-    
     func fetchCryptos(currency: String) async -> Result<[Crypto], GetCryptoError> {
         fetchCryptosResult
     }
