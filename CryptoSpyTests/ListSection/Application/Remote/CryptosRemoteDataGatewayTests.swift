@@ -12,11 +12,11 @@ import XCTest
 
 final class CryptosRemoteDataGatewayTests: XCTestCase {
     
-    static let crypto = Crypto(id: "Stub", symbol: "crypto_coin", name: "CC", image: "", current_price: 1.0, price_change_percentage_24h: -1.0)
+    static let crypto = Crypto(id: "", symbol: "bitcoin", name: "", image: "", current_price: 50000.0, price_change_percentage_24h: 10.0, market_cap_rank: 1, favourites: false)
     
     func testCryptosRemoteDataGateway_whenResultIsSuccessful_returnsCryptos() async {
         let sut = makeSUT()
-        let cryptosResult = await sut.fetchCryptos()
+        let cryptosResult = await sut.fetchCryptos(currency: "usd")
         switch cryptosResult {
         case let .success(cryptos):
             XCTAssertEqual(cryptos, [Self.crypto])
@@ -26,10 +26,14 @@ final class CryptosRemoteDataGatewayTests: XCTestCase {
     }
 
     func testCryptosRemoteDataGateway_whenResultIsAFailure_returnsGetCryptoError() async {
-        let remoteStorageError = GetCryptoError.networkError(cause: "network error")
-        let cryptosServiceStub = CryptosServiceStub(fetchCryptosResult: .failure(remoteStorageError))
+        let cryptoRemoteStorageError = GetCryptoError.networkError(cause: "network error")
+        let currenciesRemoteStorageError = GetCurrenciesError.networkError(cause: "network error")
+        let cryptosServiceStub = CryptosServiceStub(
+            fetchCryptosResult: .failure(cryptoRemoteStorageError),
+            fetchCurrenciesResult: .failure(currenciesRemoteStorageError)
+        )
         let sut = makeSUT(service: cryptosServiceStub)
-        let cryptosResult = await sut.fetchCryptos()
+        let cryptosResult = await sut.fetchCryptos(currency: "usd")
         switch cryptosResult {
         case .success:
             XCTFail("Request should have failed")
