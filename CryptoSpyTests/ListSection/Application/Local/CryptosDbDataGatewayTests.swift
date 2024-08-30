@@ -12,7 +12,7 @@ import XCTest
 
 final class CryptosDbDataGatewayTests: XCTestCase {
     
-    static let crypto = Crypto(id: "StubDb", symbol: "crypto_coin", name: "CC", image: "", current_price: 1.0, price_change_percentage_24h: 1.0)
+    static let crypto = Crypto(id: "", symbol: "bitcoin", name: "", image: "", current_price: 50000.0, price_change_percentage_24h: 10.0, market_cap_rank: 1, favourites: false)
     
     func testCryptosDbDataGateway_whenResultIsSuccessful_returnsCryptos() async {
         let sut = makeSUT()
