@@ -10,9 +10,14 @@ import XCTest
 
 final class CryptoViewModelTests: XCTestCase {
     
-    static let crypto = Crypto(id: "", symbol: "bitcoin", name: "BTC", image: "", current_price: 1.0, price_change_percentage_24h: 1.0)
-    static let crypto2 = Crypto(id: "", symbol: "etherum", name: "ETH", image: "", current_price: 1.0, price_change_percentage_24h: -1.0)
-    static let cryptosDataSourceRemoteStub = CryptosDataSourceRemoteStub(response: .success([crypto]))
+    static let crypto = Crypto(id: "", symbol: "bitcoin", name: "", image: "", current_price: 50000.0, price_change_percentage_24h: 10.0, market_cap_rank: 1, favourites: false)
+    static let crypto2 = Crypto(id: "", symbol: "etherum", name: "", image: "", current_price: 2400.0, price_change_percentage_24h: 10.0, market_cap_rank: 1, favourites: false)
+    
+    static let currencies = Currencies(listSupported: ["usd", "eur", "gbp"] )
+    
+    static let cryptosDataSourceRemoteStub = CryptosDataSourceRemoteStub(
+        responseCrypto: .success([crypto]), responseCurrencies: .success(currencies) 
+    )
     static let cryptosDataSourceLocalStub = CryptosDataSourceLocalStub(response: .success([crypto2]))
     static let getCryptosSource = buildGetCryptosRepository(cryptosRemoteSource: cryptosDataSourceRemoteStub, cryptosLocalSource: cryptosDataSourceLocalStub)
     static let getCryptosUseCase = GetCryptosUseCase(source: getCryptosSource)
@@ -36,13 +41,17 @@ final class CryptoViewModelTests: XCTestCase {
         let remoteErrorCause = "Remote Fetch failed"
         let localErrorCause = "Local Storage failed"
         let getCryptoErrorNetworkError = GetCryptoError.networkError(cause: remoteErrorCause)
-        let cryptosDataSourceRemoteStubWithError = CryptosDataSourceRemoteStub(response: .failure(getCryptoErrorNetworkError))
+        let getCurrenciesErrorNetworkError = GetCurrenciesError.networkError(cause: remoteErrorCause)
+        let cryptosDataSourceRemoteStubWithError = CryptosDataSourceRemoteStub(
+            responseCrypto: .failure(getCryptoErrorNetworkError),
+            responseCurrencies: .failure(getCurrenciesErrorNetworkError)
+        )
         let cryptosDataSourceLocalStubWithError = CryptosDataSourceLocalStub(response: .failure(.localStorageError(cause: localErrorCause)))
         let getCryptosSource = Self.buildGetCryptosRepository(cryptosRemoteSource: cryptosDataSourceRemoteStubWithError, cryptosLocalSource: cryptosDataSourceLocalStubWithError)
         let getCryptosUseCase = GetCryptosUseCase(source: getCryptosSource)
         let sut = makeSUT(getCryptosUseCase: getCryptosUseCase)
         await sut.onAppearAction()
-        XCTAssertEqual(sut.alertError, getCryptoErrorNetworkError)
+        XCTAssertEqual(sut.crypto_alertError, getCryptoErrorNetworkError)
     }
     
     // MARK: - Helpers
@@ -64,7 +73,7 @@ final class CryptoViewModelTests: XCTestCase {
         cryptosLocalSource: CryptosDataSourceLocal = cryptosDataSourceLocalStub
     ) -> GetCryptosRepository {
         return GetCryptosRepository(
-            CryptosRemoteSource: cryptosRemoteSource,
-            CryptosLocalSource: cryptosLocalSource)
+            cryptosRemoteSource: cryptosRemoteSource,
+            cryptosLocalSource: cryptosLocalSource)
     }
 }
