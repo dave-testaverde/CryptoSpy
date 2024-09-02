@@ -20,7 +20,10 @@ final class GetCryptosUseCaseTests: XCTestCase {
     }
 
     func testGetCryptosUseCase_whenCallingGetCryptosFails_getsErrorResponse() async {
-        let getCryptosSource = GetCryptosSourceStub(responseCrypto: .failure(.networkError(cause: "remoteError")), responseCurrencies: .failure(.networkError(cause: "remoteError")))
+        let getCryptosSource = GetCryptosSourceStub(
+            responseCrypto: .failure(.networkError(cause: "cause")),
+            responseCurrencies: .failure(.networkError(cause: "cause"))
+        )
         let sut = makeSUT(getCryptosSource: getCryptosSource)
         let getCryptoResult = await sut.getCryptos(currency: "usd")
         XCTAssertEqual(Result.failure(.networkError(cause: "cause")), getCryptoResult)
@@ -29,7 +32,10 @@ final class GetCryptosUseCaseTests: XCTestCase {
     // MARK: - Helpers
     
     private func makeSUT(
-        getCryptosSource: GetCryptosSource = GetCryptosSourceStub(responseCrypto: .success([crypto]), responseCurrencies: .success(currencies) ),
+        getCryptosSource: GetCryptosSource = GetCryptosSourceStub(
+            responseCrypto: .success([crypto]),
+            responseCurrencies: .success(currencies)
+        ),
         file: StaticString = #file,
         line: UInt = #line
     ) -> GetCryptosUseCase {
