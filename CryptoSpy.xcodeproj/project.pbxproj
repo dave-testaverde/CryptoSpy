@@ -35,7 +35,6 @@
 		55619F7D2C5A9A48007D52A9 /* ErrorHttp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55619F7C2C5A9A48007D52A9 /* ErrorHttp.swift */; };
 		55619FA12C5BBE10007D52A9 /* CryptoViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55619F8F2C5BBE10007D52A9 /* CryptoViewModelTests.swift */; };
 		55619FA92C5BC01F007D52A9 /* XCTestCase+Exts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55619FA72C5BC01F007D52A9 /* XCTestCase+Exts.swift */; };
-		55619FAF2C5D12BC007D52A9 /* GetCryptosUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55619FAD2C5D12BC007D52A9 /* GetCryptosUseCaseTests.swift */; };
 		55619FB32C5EA28C007D52A9 /* GetCryptosRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55619FB12C5EA28B007D52A9 /* GetCryptosRepositoryTests.swift */; };
 		55619FCD2C5FD743007D52A9 /* CryptosRemoteDataGatewayTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55619FCC2C5FD743007D52A9 /* CryptosRemoteDataGatewayTests.swift */; };
 		55619FCF2C5FD75A007D52A9 /* CryptosServiceImpTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55619FCE2C5FD75A007D52A9 /* CryptosServiceImpTests.swift */; };
@@ -49,6 +48,7 @@
 		55619FE62C6D5270007D52A9 /* FavouritesButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55619FE52C6D526F007D52A9 /* FavouritesButton.swift */; };
 		55619FE92C75303C007D52A9 /* Currencies.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55619FE82C75303C007D52A9 /* Currencies.swift */; };
 		55619FEB2C758532007D52A9 /* GetCurrenciesError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55619FEA2C758532007D52A9 /* GetCurrenciesError.swift */; };
+		55619FF02C839797007D52A9 /* GetCryptosUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55619FEF2C839797007D52A9 /* GetCryptosUseCaseTests.swift */; };
 		5B1451ED7F3302778FBAC102 /* Pods_CryptoSpy_CryptoSpyUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D075B46D47B5E345087DB275 /* Pods_CryptoSpy_CryptoSpyUITests.framework */; };
 		ECF20727538F184DA0C6A5E8 /* Pods_CryptoSpy.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B0C3B607A6939A48C516AB29 /* Pods_CryptoSpy.framework */; };
 /* End PBXBuildFile section */
@@ -104,7 +104,6 @@
 		55619F7C2C5A9A48007D52A9 /* ErrorHttp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorHttp.swift; sourceTree = "<group>"; };
 		55619F8F2C5BBE10007D52A9 /* CryptoViewModelTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CryptoViewModelTests.swift; sourceTree = "<group>"; };
 		55619FA72C5BC01F007D52A9 /* XCTestCase+Exts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "XCTestCase+Exts.swift"; sourceTree = "<group>"; };
-		55619FAD2C5D12BC007D52A9 /* GetCryptosUseCaseTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetCryptosUseCaseTests.swift; sourceTree = "<group>"; };
 		55619FB12C5EA28B007D52A9 /* GetCryptosRepositoryTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetCryptosRepositoryTests.swift; sourceTree = "<group>"; };
 		55619FCC2C5FD743007D52A9 /* CryptosRemoteDataGatewayTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CryptosRemoteDataGatewayTests.swift; sourceTree = "<group>"; };
 		55619FCE2C5FD75A007D52A9 /* CryptosServiceImpTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CryptosServiceImpTests.swift; sourceTree = "<group>"; };
@@ -118,6 +117,7 @@
 		55619FE52C6D526F007D52A9 /* FavouritesButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouritesButton.swift; sourceTree = "<group>"; };
 		55619FE82C75303C007D52A9 /* Currencies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Currencies.swift; sourceTree = "<group>"; };
 		55619FEA2C758532007D52A9 /* GetCurrenciesError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetCurrenciesError.swift; sourceTree = "<group>"; };
+		55619FEF2C839797007D52A9 /* GetCryptosUseCaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetCryptosUseCaseTests.swift; sourceTree = "<group>"; };
 		56D636F08FE8C532B3D136E0 /* Pods-CryptoSpy-CryptoSpyUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CryptoSpy-CryptoSpyUITests.debug.xcconfig"; path = "Target Support Files/Pods-CryptoSpy-CryptoSpyUITests/Pods-CryptoSpy-CryptoSpyUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		84F3546D2EB58235B67386F1 /* Pods-CryptoSpy-CryptoSpyUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CryptoSpy-CryptoSpyUITests.release.xcconfig"; path = "Target Support Files/Pods-CryptoSpy-CryptoSpyUITests/Pods-CryptoSpy-CryptoSpyUITests.release.xcconfig"; sourceTree = "<group>"; };
 		B0AD76E6B8B5289F6D001E98 /* Pods-CryptoSpyTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CryptoSpyTests.debug.xcconfig"; path = "Target Support Files/Pods-CryptoSpyTests/Pods-CryptoSpyTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -376,9 +376,9 @@
 		55619F7E2C5BBDAC007D52A9 /* ListSection */ = {
 			isa = PBXGroup;
 			children = (
+				55619FEE2C839778007D52A9 /* Domain */,
 				55619FC82C5FD529007D52A9 /* Application */,
 				55619FB02C5EA28B007D52A9 /* Data */,
-				55619FAB2C5D12BC007D52A9 /* Domain */,
 				55619FA62C5BC01F007D52A9 /* Helpers */,
 				55619F8D2C5BBE10007D52A9 /* Presentation */,
 			);
@@ -400,15 +400,6 @@
 				55619FA72C5BC01F007D52A9 /* XCTestCase+Exts.swift */,
 			);
 			path = Helpers;
-			sourceTree = "<group>";
-		};
-		55619FAB2C5D12BC007D52A9 /* Domain */ = {
-			isa = PBXGroup;
-			children = (
-				55619FAD2C5D12BC007D52A9 /* GetCryptosUseCaseTests.swift */,
-			);
-			name = Domain;
-			path = "../../../../../../../../Downloads/SwiftUI-Clean-Architecture-example-with-unit-tests-main/MMATests/Domain";
 			sourceTree = "<group>";
 		};
 		55619FB02C5EA28B007D52A9 /* Data */ = {
@@ -461,6 +452,14 @@
 				55619FE52C6D526F007D52A9 /* FavouritesButton.swift */,
 			);
 			path = Partial;
+			sourceTree = "<group>";
+		};
+		55619FEE2C839778007D52A9 /* Domain */ = {
+			isa = PBXGroup;
+			children = (
+				55619FEF2C839797007D52A9 /* GetCryptosUseCaseTests.swift */,
+			);
+			path = Domain;
 			sourceTree = "<group>";
 		};
 		D04942BB28F7BF6333EE881F /* Frameworks */ = {
@@ -763,9 +762,9 @@
 				55619FB32C5EA28C007D52A9 /* GetCryptosRepositoryTests.swift in Sources */,
 				55619FD62C610079007D52A9 /* CryptosDbDataGatewayTests.swift in Sources */,
 				55619FD42C610067007D52A9 /* CryptosDbImpTests.swift in Sources */,
+				55619FF02C839797007D52A9 /* GetCryptosUseCaseTests.swift in Sources */,
 				55619FD12C5FD8B5007D52A9 /* URLProtocolStub.swift in Sources */,
 				55619FA92C5BC01F007D52A9 /* XCTestCase+Exts.swift in Sources */,
-				55619FAF2C5D12BC007D52A9 /* GetCryptosUseCaseTests.swift in Sources */,
 				55619FA12C5BBE10007D52A9 /* CryptoViewModelTests.swift in Sources */,
 				55619FCD2C5FD743007D52A9 /* CryptosRemoteDataGatewayTests.swift in Sources */,
 			);
@@ -833,7 +832,7 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
-				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -896,7 +895,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -986,6 +985,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 5H5A53D8C4;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				MARKETING_VERSION = 1.0;
@@ -1007,6 +1007,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 5H5A53D8C4;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				MARKETING_VERSION = 1.0;
@@ -1027,6 +1028,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 5H5A53D8C4;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.dt.proto.cryptos.CryptoSpyUITests;
@@ -1046,6 +1048,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 5H5A53D8C4;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.dt.proto.cryptos.CryptoSpyUITests;
