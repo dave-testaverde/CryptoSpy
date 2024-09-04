@@ -13,10 +13,18 @@ final class GetCryptosRepositoryTests: XCTestCase {
     static let crypto = Crypto(id: "", symbol: "bitcoin", name: "", image: "", current_price: 50000.0, price_change_percentage_24h: 10.0, market_cap_rank: 1, favourites: false)
     static let crypto2 = Crypto(id: "", symbol: "etherum", name: "", image: "", current_price: 2400.0, price_change_percentage_24h: 10.0, market_cap_rank: 1, favourites: false)
     
+    static let currencies = Currencies(listSupported: ["usd", "eur", "gbp"])
+    
     func testGetCryptosRepository_whenGettingCryptosFromLocalSourceSuccessfuly_returnsCryptos() async {
         let sut = makeSUT()
         let getCryptoResult = await sut.getCryptos(currency: "usd")
-        XCTAssertEqual(Result.success([Self.crypto]), getCryptoResult)
+        XCTAssertEqual(Result.success([Self.crypto2]), getCryptoResult)
+    }
+    
+    func testGetCurrenciesRepository_whenGettingCurrenciesFromLocalSourceSuccessfuly_returnsCurrencies() async {
+        let sut = makeSUT()
+        let getCurrenciesResult = await sut.getCurrencies()
+        XCTAssertEqual(Result.success(Self.currencies), getCurrenciesResult)
     }
 
     func testGetCryptosRepository_whenGettingCryptosFromLocalSourceIsEmpty_returnsRemoteCryptos() async {
@@ -33,7 +41,10 @@ final class GetCryptosRepositoryTests: XCTestCase {
 
     func testGetCryptosRepository_whenGettingCryptosFromBothSourcesFail_returnsNetworkError() async {
         let sut = makeSUT(
-            CryptosRemoteSource: CryptosDataSourceRemoteStub(responseCrypto: .failure(.networkError(cause: "remoteError")), responseCurrencies: .failure(.networkError(cause: "remoteError"))),
+            CryptosRemoteSource: CryptosDataSourceRemoteStub(
+                responseCrypto: .failure(.networkError(cause: "remoteError")),
+                responseCurrencies: .failure(.networkError(cause: "remoteError"))
+            ),
             CryptosLocalSource: CryptosDataSourceLocalStub(response: .failure(.localStorageError(cause: "localError")))
         )
         let getCryptoResult = await sut.getCryptos(currency: "usd")
@@ -43,7 +54,10 @@ final class GetCryptosRepositoryTests: XCTestCase {
     // MARK: - Helpers
     
     private func makeSUT(
-        CryptosRemoteSource: CryptosDataSourceRemote = CryptosDataSourceRemoteStub(responseCrypto: .success([crypto2]), responseCurrencies: .success(Currencies(listSupported: ["usd", "eur", "gbp"]))),
+        CryptosRemoteSource: CryptosDataSourceRemote = CryptosDataSourceRemoteStub(
+            responseCrypto: .success([crypto2]),
+            responseCurrencies: .success(currencies)
+        ),
         CryptosLocalSource: CryptosDataSourceLocal = CryptosDataSourceLocalStub(response: .success([crypto])),
         file: StaticString = #file,
         line: UInt = #line
