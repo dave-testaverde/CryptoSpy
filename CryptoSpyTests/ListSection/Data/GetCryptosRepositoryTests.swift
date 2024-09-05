@@ -51,6 +51,18 @@ final class GetCryptosRepositoryTests: XCTestCase {
         XCTAssertEqual(Result.failure(GetCryptoError.networkError(cause: "remoteError")), getCryptoResult)
     }
     
+    func testGetCurrenciesRepository_whenGettingCurrenciesFromBothSourcesFail_returnsNetworkError() async {
+        let sut = makeSUT(
+            CryptosRemoteSource: CryptosDataSourceRemoteStub(
+                responseCrypto: .failure(.networkError(cause: "remoteError")),
+                responseCurrencies: .failure(.networkError(cause: "remoteError"))
+            ),
+            CryptosLocalSource: CryptosDataSourceLocalStub(response: .failure(.localStorageError(cause: "localError")))
+        )
+        let getCurrenciesResult = await sut.getCurrencies()
+        XCTAssertEqual(Result.failure(GetCurrenciesError.networkError(cause: "remoteError")), getCurrenciesResult)
+    }
+    
     // MARK: - Helpers
     
     private func makeSUT(
