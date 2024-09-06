@@ -13,6 +13,8 @@ final class CryptosServiceImpTests: XCTestCase {
     static let crypto = Crypto(id: "", symbol: "bitcoin", name: "", image: "", current_price: 50000.0, price_change_percentage_24h: 10.0, market_cap_rank: 1, favourites: false)
     static let crypto2 = Crypto(id: "", symbol: "etherum", name: "", image: "", current_price: 2400.0, price_change_percentage_24h: 10.0, market_cap_rank: 1, favourites: false)
     
+    static let currency = "usd"
+    
     override func tearDown() {
         super.tearDown()
         
@@ -20,7 +22,7 @@ final class CryptosServiceImpTests: XCTestCase {
     }
     
     func testCryptosServiceImp_whenFetchingCryptosRequestSucceeds_returnsCryptos() async {
-        let url = URL(string: coingecko_get_all_crypto)!
+        let url = URL(string: coingecko_get_all_crypto + Self.currency)!
         
         let cryptoList = [
             Self.crypto,
@@ -32,7 +34,7 @@ final class CryptosServiceImpTests: XCTestCase {
         URLProtocolStub.stub(data: encodedCryptoList, response: urlResponse, error: nil)
         
         let sut = makeSUT()
-        let cryptosResult = await sut.fetchCryptos(currency: "usd")
+        let cryptosResult = await sut.fetchCryptos(currency: Self.currency)
         switch cryptosResult {
         case let .success(cryptos):
             XCTAssertEqual(cryptos, cryptoList)
