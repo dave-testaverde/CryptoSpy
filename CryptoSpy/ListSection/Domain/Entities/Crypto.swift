@@ -62,4 +62,17 @@ struct Crypto: Identifiable, Equatable {
     }
 }
 
-extension Crypto: Codable {}
+extension Crypto: Codable {
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        
+        try container.encode(self.id, forKey: .id)
+        try container.encode(self.symbol, forKey: .symbol)
+        try container.encode(self.name, forKey: .name)
+        try container.encode(self.image, forKey: .image)
+        
+        try container.encode(self.current_price, forKey: .current_price)
+        try container.encode(self.price_change_percentage_24h, forKey: .price_change_percentage_24h)
+        try container.encode(self.market_cap_rank, forKey: .market_cap_rank)
+    }
+}
