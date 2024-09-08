@@ -13,6 +13,8 @@ final class CryptosServiceImpTests: XCTestCase {
     static let crypto = Crypto(id: "", symbol: "bitcoin", name: "", image: "", current_price: 50000.0, price_change_percentage_24h: 10.0, market_cap_rank: 1, favourites: false)
     static let crypto2 = Crypto(id: "", symbol: "etherum", name: "", image: "", current_price: 2400.0, price_change_percentage_24h: 10.0, market_cap_rank: 1, favourites: false)
     
+    static let currenciesList = Currencies(listSupported: ["usd", "eur", "gbp"])
+    
     static let currency = "usd"
     
     override func tearDown() {
@@ -38,6 +40,23 @@ final class CryptosServiceImpTests: XCTestCase {
         switch cryptosResult {
         case let .success(cryptos):
             XCTAssertEqual(cryptos, cryptoList)
+        default:
+            XCTFail("Request should have succeded")
+        }
+    }
+    
+    func testCurrenciesServiceImp_whenFetchingCurrenciesRequestSucceeds_returnsCurrencies() async {
+        let url = URL(string: coingecko_get_all_currencies)!
+        
+        let encodedCurrenciesList = try? JSONEncoder().encode(Self.currenciesList)
+        let urlResponse = HTTPURLResponse(url: url, statusCode: 200, httpVersion: nil, headerFields: nil)!
+        URLProtocolStub.stub(data: encodedCurrenciesList, response: urlResponse, error: nil)
+        
+        let sut = makeSUT()
+        let currenciesResult = await sut.fetchCurrencies()
+        switch currenciesResult {
+        case let .success(currencies):
+            XCTAssertEqual(currencies, Self.currenciesList)
         default:
             XCTFail("Request should have succeded")
         }
