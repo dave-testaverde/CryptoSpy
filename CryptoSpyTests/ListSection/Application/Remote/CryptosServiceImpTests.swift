@@ -48,7 +48,7 @@ final class CryptosServiceImpTests: XCTestCase {
     func testCurrenciesServiceImp_whenFetchingCurrenciesRequestSucceeds_returnsCurrencies() async {
         let url = URL(string: coingecko_get_all_currencies)!
         
-        let encodedCurrenciesList = try? JSONEncoder().encode(Self.currenciesList)
+        let encodedCurrenciesList = try? JSONEncoder().encode(Self.currenciesList.listSupported)
         let urlResponse = HTTPURLResponse(url: url, statusCode: 200, httpVersion: nil, headerFields: nil)!
         URLProtocolStub.stub(data: encodedCurrenciesList, response: urlResponse, error: nil)
         
