@@ -34,6 +34,16 @@ final class GetCryptosUseCaseTests: XCTestCase {
         let getCurrenciesResult = await sut.getCurrencies()
         XCTAssertEqual(Result.success(Self.currencies), getCurrenciesResult)
     }
+
+    func testGetCurrenciesUseCase_whenCallingGetCurrenciesFails_getsErrorResponse() async {
+        let getCryptosSource = GetCryptosSourceStub(
+            responseCrypto: .failure(.networkError(cause: "cause")),
+            responseCurrencies: .failure(.networkError(cause: "cause"))
+        )
+        let sut = makeSUT(getCryptosSource: getCryptosSource)
+        let getCurrenciesResult = await sut.getCurrencies()
+        XCTAssertEqual(Result.failure(.networkError(cause: "cause")), getCurrenciesResult)
+    }
     
     // MARK: - Helpers
     
