@@ -43,10 +43,12 @@ class CryptoViewModel {
         }
     }
 
-    init(getCryptosUseCase: GetCryptosUseCase) {
+    init(getCryptosUseCase: GetCryptosUseCase, disableRx: Bool) {
         self.getCryptosUseCase = getCryptosUseCase
         self.currency = INIT_CURRENCY
-        initRxComponents()
+        if(!disableRx){
+            initRxComponents()
+        }
     }
     
     private func getCryptos() async {

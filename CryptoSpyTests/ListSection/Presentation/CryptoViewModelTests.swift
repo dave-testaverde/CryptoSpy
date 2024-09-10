@@ -16,10 +16,16 @@ final class CryptoViewModelTests: XCTestCase {
     static let currencies = Currencies(listSupported: ["usd", "eur", "gbp"] )
     
     static let cryptosDataSourceRemoteStub = CryptosDataSourceRemoteStub(
-        responseCrypto: .success([crypto]), responseCurrencies: .success(currencies) 
+        responseCrypto: .success([crypto]), 
+        responseCurrencies: .success(currencies)
     )
     static let cryptosDataSourceLocalStub = CryptosDataSourceLocalStub(response: .success([crypto2]))
-    static let getCryptosSource = buildGetCryptosRepository(cryptosRemoteSource: cryptosDataSourceRemoteStub, cryptosLocalSource: cryptosDataSourceLocalStub)
+    
+    static let getCryptosSource = buildGetCryptosRepository(
+        cryptosRemoteSource: cryptosDataSourceRemoteStub,
+        cryptosLocalSource: cryptosDataSourceLocalStub
+    )
+    
     static let getCryptosUseCase = GetCryptosUseCase(source: getCryptosSource)
     
     @MainActor
@@ -63,7 +69,7 @@ final class CryptoViewModelTests: XCTestCase {
         file: StaticString = #file,
         line: UInt = #line
     ) -> CryptoViewModel {
-        let sut = CryptoViewModel(getCryptosUseCase: getCryptosUseCase)
+        let sut = CryptoViewModel(getCryptosUseCase: getCryptosUseCase, disableRx: true)
         trackForMemoryLeaks(sut, file: file, line: line)
         return sut
     }
