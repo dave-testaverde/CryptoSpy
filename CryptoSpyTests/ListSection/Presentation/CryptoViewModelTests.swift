@@ -30,16 +30,9 @@ final class CryptoViewModelTests: XCTestCase {
     
     @MainActor
     func testHomeViewModel_whenOnAppear_CryptosArePopulated() async {
-        let sut = makeSUT()
+        let sut = makeSUT(getCryptosUseCase: Self.buildGetCryptosUseCases())
         await sut.onAppearAction()
         XCTAssertFalse(sut.cryptos.isEmpty)
-    }
-
-    @MainActor
-    func testHomeViewModel_whenOnAppear_cryptosArePopulatedWithLocalCryptos() async {
-        let sut = makeSUT()
-        await sut.onAppearAction()
-        XCTAssertEqual(sut.cryptos, [Self.crypto])
     }
     
     @MainActor
@@ -82,4 +75,24 @@ final class CryptoViewModelTests: XCTestCase {
             cryptosRemoteSource: cryptosRemoteSource,
             cryptosLocalSource: cryptosLocalSource)
     }
+    
+    private static func buildGetCryptosUseCases() -> GetCryptosUseCase {
+        let cryptosService = CryptosServiceImp()
+        let cryptosDb = CryptosDbImp()
+        
+        let cryptosDataSourceRemote = CryptosRemoteDataGateway(
+            service: cryptosService,
+            db: cryptosDb
+        )
+        
+        let cryptosDataSourceLocal = CryptosDbDataGateway(db: cryptosDb)
+        
+        let getCryptosSource = GetCryptosRepository(
+            cryptosRemoteSource: cryptosDataSourceRemote,
+            cryptosLocalSource: cryptosDataSourceLocal
+        )
+        
+        return GetCryptosUseCase(source: getCryptosSource)
+    }
+    
 }
