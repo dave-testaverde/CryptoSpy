@@ -36,6 +36,13 @@ final class CryptoViewModelTests: XCTestCase {
     }
     
     @MainActor
+    func testHomeViewModel_whenOnAppear_CurrenciesArePopulated() async {
+        let sut = makeSUT(getCryptosUseCase: Self.buildGetCryptosUseCases())
+        await sut.onAppearAction()
+        XCTAssertFalse(sut.currencies.listSupported.isEmpty)
+    }
+    
+    @MainActor
     func testHomeViewModel_whenOnAppearGetCryptosRemoteFails_errorAlertCauseIsSet() async {
         let remoteErrorCause = "Remote Fetch failed"
         let localErrorCause = "Local Storage failed"
