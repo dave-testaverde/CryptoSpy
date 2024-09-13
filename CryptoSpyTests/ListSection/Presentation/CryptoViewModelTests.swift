@@ -60,6 +60,32 @@ final class CryptoViewModelTests: XCTestCase {
         XCTAssertEqual(sut.crypto_alertError, getCryptoErrorNetworkError)
     }
     
+    @MainActor
+    func testHomeViewModel_whenOnAppearGetCurrenciesRemoteFails_errorAlertCauseIsSet() async {
+        let remoteErrorCause = "Remote Fetch failed"
+        let localErrorCause = "Local Storage failed"
+        
+        let getCryptoErrorNetworkError = GetCryptoError.networkError(cause: remoteErrorCause)
+        let getCurrenciesErrorNetworkError = GetCurrenciesError.networkError(cause: remoteErrorCause)
+        
+        let cryptosDataSourceRemoteStubWithError = CryptosDataSourceRemoteStub(
+            responseCrypto: .failure(getCryptoErrorNetworkError),
+            responseCurrencies: .failure(getCurrenciesErrorNetworkError)
+        )
+        let cryptosDataSourceLocalStubWithError = CryptosDataSourceLocalStub(
+            response: .failure(.localStorageError(cause: localErrorCause))
+        )
+        let getCryptosSource = Self.buildGetCryptosRepository(
+            cryptosRemoteSource: cryptosDataSourceRemoteStubWithError,
+            cryptosLocalSource: cryptosDataSourceLocalStubWithError
+        )
+        let getCryptosUseCase = GetCryptosUseCase(source: getCryptosSource)
+        let sut = makeSUT(getCryptosUseCase: getCryptosUseCase)
+        await sut.onAppearAction()
+        
+        XCTAssertEqual(sut.currencies_alertError, getCurrenciesErrorNetworkError)
+    }
+    
     // MARK: - Helpers
     
     /// make System Under Test
