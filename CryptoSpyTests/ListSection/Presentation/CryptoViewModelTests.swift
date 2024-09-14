@@ -43,6 +43,14 @@ final class CryptoViewModelTests: XCTestCase {
     }
     
     @MainActor
+    func testHomeViewModel_whenChangeCryptosStatus_Rx() async {
+        let sut = makeSUT(getCryptosUseCase: Self.buildGetCryptosUseCases(), disableRx: false, checkMemoryLeaks: false)
+        await sut.onAppearAction()
+        sut.searchPattern = "doge"
+        XCTAssertEqual(sut.filteredMessages.count, 1)
+    }
+    
+    @MainActor
     func testHomeViewModel_whenOnAppearGetCryptosRemoteFails_errorAlertCauseIsSet() async {
         let remoteErrorCause = "Remote Fetch failed"
         let localErrorCause = "Local Storage failed"
@@ -93,10 +101,14 @@ final class CryptoViewModelTests: XCTestCase {
     private func makeSUT(
         getCryptosUseCase: GetCryptosUseCase = getCryptosUseCase,
         file: StaticString = #file,
-        line: UInt = #line
+        line: UInt = #line,
+        disableRx: Bool = true,
+        checkMemoryLeaks: Bool = true
     ) -> CryptoViewModel {
-        let sut = CryptoViewModel(getCryptosUseCase: getCryptosUseCase, disableRx: true)
-        trackForMemoryLeaks(sut, file: file, line: line)
+        let sut = CryptoViewModel(getCryptosUseCase: getCryptosUseCase, disableRx: disableRx)
+        if(checkMemoryLeaks){
+            trackForMemoryLeaks(sut, file: file, line: line)
+        }
         return sut
     }
     
