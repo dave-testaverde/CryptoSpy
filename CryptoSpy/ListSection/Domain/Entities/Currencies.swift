@@ -5,8 +5,14 @@
 //  Created by Dave on 20/08/24.
 //
 
-struct Currencies: Equatable {
-    var listSupported: [String] = []
-}
+import Foundation
+import SwiftData
 
-extension Currencies: Codable {}
+@Model
+class Currencies: Identifiable {
+    var listSupported: [String] 
+    
+    init(listSupported: [String]) {
+        self.listSupported = listSupported
+    }
+}
