@@ -6,7 +6,7 @@
 //
 
 import Foundation
-
+import SwiftData
 import RxSwift
 
 @MainActor
@@ -26,6 +26,8 @@ class CryptoViewModel {
     let disposeBag = DisposeBag()
     
     var filteredMessages: [Crypto] = []
+    
+    var modelContext: ModelContext?
     
     var currencies: Currencies = Currencies(listSupported: [])
     
