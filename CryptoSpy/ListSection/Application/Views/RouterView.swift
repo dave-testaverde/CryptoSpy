@@ -11,16 +11,9 @@ import SwiftData
 
 @MainActor
 struct RouterView: View {
-    @Environment(\.modelContext) private var modelContext
-    
     @State private var router = Router()
     
     @State private var cryptoViewModel: CryptoViewModel = Factory.makeListSection()
-    
-    init() {
-        self.cryptoViewModel.modelContext = modelContext
-        print(self.cryptoViewModel.modelContext!)
-    }
     
     var body: some View {
 

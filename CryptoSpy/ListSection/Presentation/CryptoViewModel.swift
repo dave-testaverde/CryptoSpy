@@ -6,12 +6,14 @@
 //
 
 import Foundation
-import SwiftData
 import RxSwift
 
 @MainActor
 @Observable
 class CryptoViewModel {
+    @ObservationIgnored
+    private let dataSource: CurrenciesDataSource
+    
     final let INIT_CURRENCY = "usd"
     
     var cryptos = [Crypto]()
@@ -26,8 +28,6 @@ class CryptoViewModel {
     let disposeBag = DisposeBag()
     
     var filteredMessages: [Crypto] = []
-    
-    var modelContext: ModelContext?
     
     var currencies: Currencies = Currencies(listSupported: [])
     
@@ -45,8 +45,9 @@ class CryptoViewModel {
         }
     }
 
-    init(getCryptosUseCase: GetCryptosUseCase, disableRx: Bool) {
+    init(getCryptosUseCase: GetCryptosUseCase, disableRx: Bool, dataSource: CurrenciesDataSource = CurrenciesDataSource.shared) {
         self.getCryptosUseCase = getCryptosUseCase
+        self.dataSource = dataSource
         self.currency = INIT_CURRENCY
         if(!disableRx){
             initRxComponents()
