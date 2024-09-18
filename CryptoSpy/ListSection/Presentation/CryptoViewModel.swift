@@ -88,6 +88,8 @@ class CryptoViewModel {
         await getCryptos()
     }
     
+    // MARK: - Helpers for RxSwift
+    
     private func emit() {
         reducer.onNext(self.searchPattern)
     }
@@ -101,6 +103,16 @@ class CryptoViewModel {
         .debug()
         .subscribe(onNext: { value in })
         .disposed(by: disposeBag)
+    }
+    
+    // MARK: - Helpers for SwiftData
+    
+    func saveCurrencies(currencies: Currencies) {
+        dataSource.appendItem(item: currencies)
+    }
+    
+    func cleanCurrencies(){
+        dataSource.removeAll()
     }
     
 }
