@@ -70,6 +70,10 @@ class CryptoViewModel {
             case let .success(currencies):
                 self.currencies = currencies
                 self.currency = self.currencies.listSupported.first ?? INIT_CURRENCY
+                if(self.fetchCurrencies().count == 0){
+                    self.saveCurrencies(currencies: currencies)
+                }
+                print(self.fetchCurrencies())
             case let .failure(getCurrenciesError):
                 currencies_alertError = getCurrenciesError
         }
@@ -113,6 +117,10 @@ class CryptoViewModel {
     
     func cleanCurrencies(){
         dataSource.removeAll()
+    }
+    
+    func fetchCurrencies() -> [Currencies] {
+        return dataSource.fetchItems()
     }
     
 }
