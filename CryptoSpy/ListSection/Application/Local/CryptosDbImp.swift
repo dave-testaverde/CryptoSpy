@@ -10,8 +10,11 @@ import Foundation
 class CryptosDbImp: CryptosDb {
     var directoryURL: URL?
     
-    init(directoryURL: URL? = nil) {
+    private let dataSource: CurrenciesDataSource
+    
+    init(directoryURL: URL? = nil, dataSource: CurrenciesDataSource = CurrenciesDataSource.shared) {
         self.directoryURL = directoryURL
+        self.dataSource = dataSource
     }
     
     func getCryptos() async -> Result<[Crypto], GetCryptoError> {
@@ -30,6 +33,10 @@ class CryptosDbImp: CryptosDb {
         } catch {
             return .failure(.localStorageError(cause: error.localizedDescription))
         }
+    }
+    
+    func getCurrencies() async -> Result<[Currencies], GetCurrenciesError> {
+        return dataSource.loadItems()
     }
     
     // MARK: - FileManager
