@@ -73,7 +73,6 @@ class CryptoViewModel {
                 if(self.fetchCurrencies().isEmpty){
                     self.saveCurrencies(currencies: currencies)
                 }
-                print(self.fetchCurrencies())
             case let .failure(getCurrenciesError):
                 currencies_alertError = getCurrenciesError
         }
