@@ -49,9 +49,9 @@ final class CurrenciesDataSource {
         }
     }
     
-    func loadItems() -> Result<[Currencies], GetCurrenciesError>  {
+    func loadItems() -> Result<Currencies, GetCurrenciesError>  {
         do {
-            let currencies = try modelContext.fetch(FetchDescriptor<Currencies>())
+            let currencies = try modelContext.fetch(FetchDescriptor<Currencies>()).first!
             return .success(currencies)
         } catch {
             return .failure(.localStorageError(cause: error.localizedDescription))
