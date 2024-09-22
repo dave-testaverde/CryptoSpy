@@ -15,4 +15,8 @@ class CryptosDbDataGateway: CryptosDataSourceLocal {
     func fetchCryptos() async -> Result<[Crypto], GetCryptoError> {
         await db.getCryptos()
     }
+    
+    func fetchCurrencies() async -> Result<Currencies, GetCurrenciesError> {
+        await db.getCurrencies()
+    }
 }
