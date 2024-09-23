@@ -30,11 +30,11 @@ class GetCryptosRepository: GetCryptosSource {
     }
     
     func getCurrencies() async -> Result<Currencies, GetCurrenciesError> {
-        let currenciesRemoteSourceResponse = await cryptosRemoteSource.fetchCurrencies()
+        let currenciesRemoteSourceResponse = await cryptosLocalSource.fetchCurrencies()
         switch currenciesRemoteSourceResponse {
             case let .success(currencies):
                 if currencies.listSupported.isEmpty {
-                    print("curriencies not found")
+                    return await cryptosRemoteSource.fetchCurrencies()
                 }
                 return currenciesRemoteSourceResponse
             case .failure:
