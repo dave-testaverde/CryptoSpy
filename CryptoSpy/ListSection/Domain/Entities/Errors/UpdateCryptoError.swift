@@ -17,3 +17,14 @@ enum UpdateCryptoError: Error, Equatable, LocalizedError {
         }
     }
 }
+
+enum UpdateCurrenciesError: Error, Equatable, LocalizedError {
+    case localStorageError(cause: String)
+    
+    var errorDescription: String? {
+        switch self {
+        case .localStorageError(let cause):
+            return cause
+        }
+    }
+}

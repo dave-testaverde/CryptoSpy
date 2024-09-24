@@ -19,9 +19,9 @@ class CryptosRemoteDataGateway: CryptosDataSourceRemote {
     func fetchCryptos(currency: String) async -> Result<[Crypto], GetCryptoError> {
         let fetchCryptosResponse = await service.fetchCryptos(currency: currency)
         switch fetchCryptosResponse {
-        case let .success(Cryptos):
-            let _ = await db.updateCryptos(with: Cryptos)
-            return .success(Cryptos)
+        case let .success(cryptos):
+            let _ = await db.updateCryptos(with: cryptos)
+            return .success(cryptos)
         case let .failure(error):
             return .failure(error)
         }
@@ -31,6 +31,7 @@ class CryptosRemoteDataGateway: CryptosDataSourceRemote {
         let fetchCurrenciesResponse = await service.fetchCurrencies()
         switch fetchCurrenciesResponse {
         case let .success(currencies):
+            //let _ = await db.updateCurrencies(with: currencies)
             return .success(currencies)
         case let .failure(error):
             return .failure(error)

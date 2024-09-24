@@ -26,9 +26,9 @@ class CryptosDbImp: CryptosDb {
         }
     }
     
-    func updateCryptos(with Cryptos: [Crypto]) async -> Result<Void, UpdateCryptoError> {
+    func updateCryptos(with cryptos: [Crypto]) async -> Result<Void, UpdateCryptoError> {
         do {
-            try await save(Cryptos: Cryptos)
+            try await saveCryptos(cryptos: cryptos)
             return .success(())
         } catch {
             return .failure(.localStorageError(cause: error.localizedDescription))
@@ -37,6 +37,15 @@ class CryptosDbImp: CryptosDb {
     
     func getCurrencies() async -> Result<Currencies, GetCurrenciesError> {
         return dataSource.loadItems()
+    }
+    
+    func updateCurrencies(with currencies: Currencies) async -> Result<Void, UpdateCurrenciesError> {
+        do {
+            try await saveCurrencies(currencies: currencies)
+            return .success(())
+        } catch {
+            return .failure(.localStorageError(cause: error.localizedDescription))
+        }
     }
     
     // MARK: - FileManager
@@ -56,12 +65,16 @@ class CryptosDbImp: CryptosDb {
         return try await task.value
     }
     
-    private func save(Cryptos: [Crypto]) async throws {
+    private func saveCryptos(cryptos: [Crypto]) async throws {
         let task = Task {
-            let data = try JSONEncoder().encode(Cryptos)
+            let data = try JSONEncoder().encode(cryptos)
             let outfile = try directoryURL ?? fileURL()
             try data.write(to: outfile)
         }
         _ = try await task.value
+    }
+    
+    private func saveCurrencies(currencies: Currencies) async throws {
+        dataSource.appendItem(item: currencies)
     }
 }
