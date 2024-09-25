@@ -13,16 +13,16 @@ protocol CryptosDataSourceLocal {
 }
 
 class CryptosDataSourceLocalStub: CryptosDataSourceLocal {
-    let response: Result<[Crypto], GetCryptoError>
+    let responseCrypto: Result<[Crypto], GetCryptoError>
     let responseCurrencies: Result<Currencies, GetCurrenciesError>
 
     init(response: Result<[Crypto], GetCryptoError>, responseCurrencies: Result<Currencies, GetCurrenciesError>) {
-        self.response = response
+        self.responseCrypto = response
         self.responseCurrencies = responseCurrencies
     }
     
     func fetchCryptos() -> Result<[Crypto], GetCryptoError> {
-        response
+        responseCrypto
     }
     
     func fetchCurrencies() -> Result<Currencies, GetCurrenciesError> {

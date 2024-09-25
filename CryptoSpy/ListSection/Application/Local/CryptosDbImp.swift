@@ -19,8 +19,8 @@ class CryptosDbImp: CryptosDb {
     
     func getCryptos() async -> Result<[Crypto], GetCryptoError> {
         do {
-            let Cryptos = try await loadCryptos()
-            return .success(Cryptos)
+            let cryptos = try await loadCryptos()
+            return .success(cryptos)
         } catch {
             return .failure(.localStorageError(cause: error.localizedDescription))
         }
