@@ -21,6 +21,8 @@ final class CurrenciesDataSource {
     }
 
     func appendItem(item: Currencies) {
+        print("[1]appendItem: \(item)")
+        self.removeAll()
         modelContext.insert(item)
         do {
             try modelContext.save()
@@ -49,9 +51,9 @@ final class CurrenciesDataSource {
         }
     }
     
-    func loadItems() -> Result<Currencies, GetCurrenciesError>  {
+    func loadItems() -> Result<[Currencies], GetCurrenciesError>  {
         do {
-            let currencies = try modelContext.fetch(FetchDescriptor<Currencies>()).first!
+            let currencies = try modelContext.fetch(FetchDescriptor<Currencies>())
             return .success(currencies)
         } catch {
             return .failure(.localStorageError(cause: error.localizedDescription))

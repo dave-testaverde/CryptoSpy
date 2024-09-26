@@ -29,11 +29,11 @@ class GetCryptosRepository: GetCryptosSource {
         }
     }
     
-    func getCurrencies() async -> Result<Currencies, GetCurrenciesError> {
+    func getCurrencies() async -> Result<[Currencies], GetCurrenciesError> {
         let currenciesRemoteSourceResponse = await cryptosLocalSource.fetchCurrencies()
         switch currenciesRemoteSourceResponse {
             case let .success(currencies):
-                if currencies.listSupported.isEmpty {
+                if currencies.isEmpty {
                     return await cryptosRemoteSource.fetchCurrencies()
                 }
                 return currenciesRemoteSourceResponse

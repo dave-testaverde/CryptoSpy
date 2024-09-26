@@ -9,15 +9,15 @@ import Foundation
 
 protocol CryptosDataSourceLocal {
     func fetchCryptos() async -> Result<[Crypto], GetCryptoError>
-    func fetchCurrencies() async -> Result<Currencies, GetCurrenciesError>
+    func fetchCurrencies() async -> Result<[Currencies], GetCurrenciesError>
 }
 
 class CryptosDataSourceLocalStub: CryptosDataSourceLocal {
     let responseCrypto: Result<[Crypto], GetCryptoError>
-    let responseCurrencies: Result<Currencies, GetCurrenciesError>
+    let responseCurrencies: Result<[Currencies], GetCurrenciesError>
 
-    init(response: Result<[Crypto], GetCryptoError>, responseCurrencies: Result<Currencies, GetCurrenciesError>) {
-        self.responseCrypto = response
+    init(responseCrypto: Result<[Crypto], GetCryptoError>, responseCurrencies: Result<[Currencies], GetCurrenciesError>) {
+        self.responseCrypto = responseCrypto
         self.responseCurrencies = responseCurrencies
     }
     
@@ -25,7 +25,7 @@ class CryptosDataSourceLocalStub: CryptosDataSourceLocal {
         responseCrypto
     }
     
-    func fetchCurrencies() -> Result<Currencies, GetCurrenciesError> {
+    func fetchCurrencies() -> Result<[Currencies], GetCurrenciesError> {
         responseCurrencies
     }
 }

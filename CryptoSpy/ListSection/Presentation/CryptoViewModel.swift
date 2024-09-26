@@ -68,11 +68,8 @@ class CryptoViewModel {
         let currienciesResult = await getCryptosUseCase.getCurrencies()
         switch currienciesResult {
             case let .success(currencies):
-                self.currencies = currencies
+                self.currencies = currencies.first!
                 self.currency = self.currencies.listSupported.first ?? INIT_CURRENCY
-                if(self.fetchCurrencies().isEmpty){
-                    self.saveCurrencies(currencies: currencies)
-                }
             case let .failure(getCurrenciesError):
                 currencies_alertError = getCurrenciesError
         }

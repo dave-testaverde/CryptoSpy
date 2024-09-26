@@ -32,7 +32,7 @@ class CryptosServiceImp: CryptosService {
         }
     }
     
-    func fetchCurrencies() async -> Result<Currencies, GetCurrenciesError> {
+    func fetchCurrencies() async -> Result<[Currencies], GetCurrenciesError> {
         let urlRequest = URLRequest(url: URL(string: coingecko_get_all_currencies)!)
         do {
             let (data, urlResponse) = try await urlSession.data(for: urlRequest)
@@ -44,7 +44,7 @@ class CryptosServiceImp: CryptosService {
             }
             let currencies = try JSONDecoder().decode([String].self, from: data)
             print(Currencies(listSupported: currencies))
-            return .success(Currencies(listSupported: currencies))
+            return .success([Currencies(listSupported: currencies)])
         } catch {
             print("error " + error.localizedDescription)
             return .failure(.networkError(cause: error.localizedDescription))

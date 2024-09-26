@@ -35,7 +35,7 @@ class CryptosDbImp: CryptosDb {
         }
     }
     
-    func getCurrencies() async -> Result<Currencies, GetCurrenciesError> {
+    func getCurrencies() async -> Result<[Currencies], GetCurrenciesError> {
         return dataSource.loadItems()
     }
     

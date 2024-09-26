@@ -22,7 +22,7 @@ class GetCryptosUseCase {
         await source.getCryptos(currency: currency)
     }
     
-    func getCurrencies() async -> Result<Currencies, GetCurrenciesError> {
+    func getCurrencies() async -> Result<[Currencies], GetCurrenciesError> {
         await source.getCurrencies()
     }
 }
