@@ -32,7 +32,7 @@ final class GetCryptosUseCaseTests: XCTestCase {
     func testGetCurrenciesUseCase_whenCallingGetCurrenciesIsSuccessful_getsSuccessfulResponse() async {
         let sut = makeSUT()
         let getCurrenciesResult = await sut.getCurrencies()
-        XCTAssertEqual(Result.success(Self.currencies), getCurrenciesResult)
+        XCTAssertEqual(Result.success([Self.currencies]), getCurrenciesResult)
     }
 
     func testGetCurrenciesUseCase_whenCallingGetCurrenciesFails_getsErrorResponse() async {

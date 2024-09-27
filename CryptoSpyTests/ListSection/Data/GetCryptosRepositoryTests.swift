@@ -13,7 +13,7 @@ final class GetCryptosRepositoryTests: XCTestCase {
     static let crypto = Crypto(id: "", symbol: "bitcoin", name: "", image: "", current_price: 50000.0, price_change_percentage_24h: 10.0, market_cap_rank: 1, favourites: false)
     static let crypto2 = Crypto(id: "", symbol: "etherum", name: "", image: "", current_price: 2400.0, price_change_percentage_24h: 10.0, market_cap_rank: 1, favourites: false)
     
-    static let currencies = Currencies(listSupported: ["usd", "eur", "gbp"])
+    static let currencies = [Currencies(listSupported: ["usd", "eur", "gbp"])]
     
     func testGetCryptosRepository_whenGettingCryptosFromLocalSourceSuccessfuly_returnsCryptos() async {
         let sut = makeSUT()
@@ -28,13 +28,23 @@ final class GetCryptosRepositoryTests: XCTestCase {
     }
 
     func testGetCryptosRepository_whenGettingCryptosFromLocalSourceIsEmpty_returnsRemoteCryptos() async {
-        let sut = makeSUT(CryptosLocalSource: CryptosDataSourceLocalStub(response: .success([])))
+        let sut = makeSUT(
+            CryptosLocalSource: CryptosDataSourceLocalStub(
+                responseCrypto: .success([]),
+                responseCurrencies: .success([])
+            )
+        )
         let getCryptoResult = await sut.getCryptos(currency: "usd")
         XCTAssertEqual(Result.success([Self.crypto2]), getCryptoResult)
     }
 
     func testGetCryptosRepository_whenGettingCryptosFromLocalSourceFails_returnsRemoteCryptos() async {
-        let sut = makeSUT(CryptosLocalSource: CryptosDataSourceLocalStub(response: .failure(.localStorageError(cause: "localError"))))
+        let sut = makeSUT(
+            CryptosLocalSource: CryptosDataSourceLocalStub(
+                responseCrypto: .failure(.localStorageError(cause: "localError")),
+                responseCurrencies: .failure(.localStorageError(cause: "localError"))
+            )
+        )
         let getCryptoResult = await sut.getCryptos(currency: "usd")
         XCTAssertEqual(Result.success([Self.crypto2]), getCryptoResult)
     }
@@ -45,7 +55,10 @@ final class GetCryptosRepositoryTests: XCTestCase {
                 responseCrypto: .failure(.networkError(cause: "remoteError")),
                 responseCurrencies: .failure(.networkError(cause: "remoteError"))
             ),
-            CryptosLocalSource: CryptosDataSourceLocalStub(response: .failure(.localStorageError(cause: "localError")))
+            CryptosLocalSource: CryptosDataSourceLocalStub(
+                responseCrypto: .failure(.localStorageError(cause: "localError")),
+                responseCurrencies: .failure(.localStorageError(cause: "localError"))
+            )
         )
         let getCryptoResult = await sut.getCryptos(currency: "usd")
         XCTAssertEqual(Result.failure(GetCryptoError.networkError(cause: "remoteError")), getCryptoResult)
@@ -57,7 +70,10 @@ final class GetCryptosRepositoryTests: XCTestCase {
                 responseCrypto: .failure(.networkError(cause: "remoteError")),
                 responseCurrencies: .failure(.networkError(cause: "remoteError"))
             ),
-            CryptosLocalSource: CryptosDataSourceLocalStub(response: .failure(.localStorageError(cause: "localError")))
+            CryptosLocalSource: CryptosDataSourceLocalStub(
+                responseCrypto: .failure(.localStorageError(cause: "localError")),
+                responseCurrencies: .failure(.localStorageError(cause: "localError"))
+            )
         )
         let getCurrenciesResult = await sut.getCurrencies()
         XCTAssertEqual(Result.failure(GetCurrenciesError.networkError(cause: "remoteError")), getCurrenciesResult)
