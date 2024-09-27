@@ -86,7 +86,10 @@ final class GetCryptosRepositoryTests: XCTestCase {
             responseCrypto: .success([crypto2]),
             responseCurrencies: .success(currencies)
         ),
-        CryptosLocalSource: CryptosDataSourceLocal = CryptosDataSourceLocalStub(response: .success([crypto])),
+        CryptosLocalSource: CryptosDataSourceLocal = CryptosDataSourceLocalStub(
+            responseCrypto: .success([crypto2]),
+            responseCurrencies: .success(currencies)
+        ),
         file: StaticString = #file,
         line: UInt = #line
     ) -> GetCryptosRepository {
