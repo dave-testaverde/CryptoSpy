@@ -50,7 +50,7 @@ final class GetCryptosUseCaseTests: XCTestCase {
     private func makeSUT(
         getCryptosSource: GetCryptosSource = GetCryptosSourceStub(
             responseCrypto: .success([crypto]),
-            responseCurrencies: .success(currencies)
+            responseCurrencies: .success([currencies])
         ),
         file: StaticString = #file,
         line: UInt = #line
