@@ -56,7 +56,7 @@ final class CryptosServiceImpTests: XCTestCase {
         let currenciesResult = await sut.fetchCurrencies()
         switch currenciesResult {
         case let .success(currencies):
-            XCTAssertEqual(currencies, Self.currenciesList)
+            XCTAssertEqual(currencies, [Self.currenciesList])
         default:
             XCTFail("Request should have succeded")
         }
