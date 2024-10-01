@@ -45,7 +45,7 @@ final class CryptosRemoteDataGatewayTests: XCTestCase {
     func testCryptosRemoteDataGateway_whenResultIsSuccessful_updatesDbCryptos() async {
         let cryptosDbSpy = CryptosDbSpy()
         let sut = makeSUT(db: cryptosDbSpy)
-        let cryptosResult = await sut.fetchCryptos(currency: "usd")
+        _ = await sut.fetchCryptos(currency: "usd")
         XCTAssertTrue(cryptosDbSpy.didUpdateCryptos)
     }
     

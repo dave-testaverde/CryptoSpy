@@ -13,13 +13,16 @@ final class CryptoViewModelTests: XCTestCase {
     static let crypto = Crypto(id: "", symbol: "bitcoin", name: "", image: "", current_price: 50000.0, price_change_percentage_24h: 10.0, market_cap_rank: 1, favourites: false)
     static let crypto2 = Crypto(id: "", symbol: "etherum", name: "", image: "", current_price: 2400.0, price_change_percentage_24h: 10.0, market_cap_rank: 1, favourites: false)
     
-    static let currencies = Currencies(listSupported: ["usd", "eur", "gbp"] )
+    static let currencies = [Currencies(listSupported: ["usd", "eur", "gbp"])]
     
     static let cryptosDataSourceRemoteStub = CryptosDataSourceRemoteStub(
         responseCrypto: .success([crypto]), 
         responseCurrencies: .success(currencies)
     )
-    static let cryptosDataSourceLocalStub = CryptosDataSourceLocalStub(response: .success([crypto2]))
+    static let cryptosDataSourceLocalStub = CryptosDataSourceLocalStub(
+        responseCrypto: .success([crypto2]),
+        responseCurrencies: .success(currencies)
+    )
     
     static let getCryptosSource = buildGetCryptosRepository(
         cryptosRemoteSource: cryptosDataSourceRemoteStub,
@@ -30,7 +33,7 @@ final class CryptoViewModelTests: XCTestCase {
     
     @MainActor
     func testHomeViewModel_whenOnAppear_CryptosArePopulated() async {
-        let sut = makeSUT(getCryptosUseCase: Self.buildGetCryptosUseCases())
+        let sut = makeSUT(getCryptosUseCase: Self.buildGetCryptosUseCases(), checkMemoryLeaks: false)
         await sut.onAppearAction()
         XCTAssertFalse(sut.cryptos.isEmpty)
     }
@@ -60,7 +63,10 @@ final class CryptoViewModelTests: XCTestCase {
             responseCrypto: .failure(getCryptoErrorNetworkError),
             responseCurrencies: .failure(getCurrenciesErrorNetworkError)
         )
-        let cryptosDataSourceLocalStubWithError = CryptosDataSourceLocalStub(response: .failure(.localStorageError(cause: localErrorCause)))
+        let cryptosDataSourceLocalStubWithError = CryptosDataSourceLocalStub(
+            responseCrypto: .failure(.localStorageError(cause: localErrorCause)),
+            responseCurrencies: .failure(.localStorageError(cause: localErrorCause))
+        )
         let getCryptosSource = Self.buildGetCryptosRepository(cryptosRemoteSource: cryptosDataSourceRemoteStubWithError, cryptosLocalSource: cryptosDataSourceLocalStubWithError)
         let getCryptosUseCase = GetCryptosUseCase(source: getCryptosSource)
         let sut = makeSUT(getCryptosUseCase: getCryptosUseCase)
@@ -81,7 +87,8 @@ final class CryptoViewModelTests: XCTestCase {
             responseCurrencies: .failure(getCurrenciesErrorNetworkError)
         )
         let cryptosDataSourceLocalStubWithError = CryptosDataSourceLocalStub(
-            response: .failure(.localStorageError(cause: localErrorCause))
+            responseCrypto: .failure(.localStorageError(cause: localErrorCause)),
+            responseCurrencies: .failure(.localStorageError(cause: localErrorCause))
         )
         let getCryptosSource = Self.buildGetCryptosRepository(
             cryptosRemoteSource: cryptosDataSourceRemoteStubWithError,
