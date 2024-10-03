@@ -11,9 +11,6 @@ import RxSwift
 @MainActor
 @Observable
 class CryptoViewModel {
-    @ObservationIgnored
-    private let dataSource: CurrenciesDataSource
-    
     final let INIT_CURRENCY = "usd"
     
     var cryptos = [Crypto]()
@@ -45,9 +42,8 @@ class CryptoViewModel {
         }
     }
 
-    init(getCryptosUseCase: GetCryptosUseCase, disableRx: Bool, dataSource: CurrenciesDataSource = CurrenciesDataSource.shared) {
+    init(getCryptosUseCase: GetCryptosUseCase, disableRx: Bool) {
         self.getCryptosUseCase = getCryptosUseCase
-        self.dataSource = dataSource
         self.currency = INIT_CURRENCY
         if(!disableRx){
             initRxComponents()
@@ -103,20 +99,6 @@ class CryptoViewModel {
         .debug()
         .subscribe(onNext: { value in })
         .disposed(by: disposeBag)
-    }
-    
-    // MARK: - Helpers for SwiftData
-    
-    func saveCurrencies(currencies: Currencies) {
-        dataSource.appendItem(item: currencies)
-    }
-    
-    func cleanCurrencies(){
-        dataSource.removeAll()
-    }
-    
-    func fetchCurrencies() -> [Currencies] {
-        return dataSource.fetchItems()
     }
     
 }
