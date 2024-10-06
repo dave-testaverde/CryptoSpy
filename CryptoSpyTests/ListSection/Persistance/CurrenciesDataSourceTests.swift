@@ -19,6 +19,13 @@ final class CurrenciesDataSourceTests: XCTestCase {
         XCTAssertEqual(Result.success([Self.currencies]), getCryptoResult)
     }
     
+    func testGetEmptyResponse_whenDeletingAllCurrencies() {
+        let sut = makeSUT()
+        sut.removeAll()
+        let getCryptoResult = sut.loadItems()
+        XCTAssertEqual(Result.success([]), getCryptoResult)
+    }
+    
     // MARK: - Helpers
     
     private func makeSUT(
