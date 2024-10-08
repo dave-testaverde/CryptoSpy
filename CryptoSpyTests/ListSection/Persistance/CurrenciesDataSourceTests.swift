@@ -15,21 +15,21 @@ final class CurrenciesDataSourceTests: XCTestCase {
     
     func testGetCurrencies_whenLoadingCurrenciesIsSuccessful_getSuccessfulResponse() {
         let sut = makeSUT(populate: true)
-        let getCryptoResult = sut.loadItems()
-        XCTAssertEqual(Result.success([Self.currencies]), getCryptoResult)
+        let getCurrenciesResult = sut.loadItems()
+        XCTAssertEqual(Result.success([Self.currencies]), getCurrenciesResult)
     }
     
     func testGetEmptyResponse_whenDeletingAllCurrencies() {
         let sut = makeSUT(populate: true)
         sut.removeAll()
-        let getCryptoResult = sut.loadItems()
-        XCTAssertEqual(Result.success([]), getCryptoResult)
+        let getCurrenciesResult = sut.loadItems()
+        XCTAssertEqual(Result.success([]), getCurrenciesResult)
     }
     
-    func testGetEmptyResponse_whenNotPopulated() {
+    func testGetFailureResponse_whenOccuredErrorFromModelContext() {
         let sut = makeSUT(populate: false)
-        let getCryptoResult = sut.loadItems()
-        XCTAssertEqual(Result.success([]), getCryptoResult)
+        let getCurrenciesResult = sut.loadItems(onError: true)
+        XCTAssertEqual(Result.failure(GetCurrenciesError.localStorageError(cause: "")), getCurrenciesResult)
     }
     
     // MARK: - Helpers
