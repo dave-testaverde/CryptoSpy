@@ -35,7 +35,8 @@ class CryptosDbImp: CryptosDb {
         }
     }
     
-    func getCurrencies() async -> Result<[Currencies], GetCurrenciesError> {
+    @MainActor
+    func getCurrencies() -> Result<[Currencies], GetCurrenciesError> {
         return dataSource.loadItems()
     }
     
@@ -78,3 +79,4 @@ class CryptosDbImp: CryptosDb {
         dataSource.appendItem(item: currencies)
     }
 }
+

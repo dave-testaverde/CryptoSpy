@@ -8,6 +8,7 @@ target 'CryptoSpy' do
   # Pods for CryptoSpy
   pod 'RxSwift'
   pod 'RxCocoa'
+  pod 'Alamofire'
 
   target 'CryptoSpyTests' do
     inherit! :search_paths

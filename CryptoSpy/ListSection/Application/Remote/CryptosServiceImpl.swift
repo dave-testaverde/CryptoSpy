@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Alamofire
 
 class CryptosServiceImp: CryptosService {
     private let urlSession: URLSession
@@ -15,7 +16,6 @@ class CryptosServiceImp: CryptosService {
     }
     
     func fetchCryptos(currency: String) async -> Result<[Crypto], GetCryptoError> {
-        print(currency)
         let urlRequest = URLRequest(url: URL(string: coingecko_get_all_crypto + currency)!)
         do {
             let (data, urlResponse) = try await urlSession.data(for: urlRequest)
@@ -25,8 +25,8 @@ class CryptosServiceImp: CryptosService {
             guard urlResponse.statusCode == 200 else {
                 return .failure(.networkError(cause: http_response_error_was_not_200))
             }
-            let Cryptos = try JSONDecoder().decode([Crypto].self, from: data)
-            return .success(Cryptos)
+            let cryptos = try JSONDecoder().decode([Crypto].self, from: data)
+            return .success(cryptos)
         } catch {
             return .failure(.networkError(cause: error.localizedDescription))
         }
@@ -50,4 +50,26 @@ class CryptosServiceImp: CryptosService {
             return .failure(.networkError(cause: error.localizedDescription))
         }
     }
+    
+    /// Alamofire
+    
+    func completationHandler(result: Result<[Crypto], GetCryptoError>) {
+        print("[completationHandler] \(result)")
+    }
+    
+    func fetchCryptosA(currency: String, completationHandler: @escaping (Result<[Crypto], GetCryptoError>) -> Void) {
+        let headers: HTTPHeaders = [ .accept("application/json") ]
+        _ = AF.request(coingecko_get_all_crypto + currency, headers: headers)
+            .responseDecodable(of: [Crypto].self) { cryptos in
+                guard cryptos.response?.statusCode == 200 else {
+                    return completationHandler(
+                        .failure(.networkError(cause: http_response_error_was_not_200))
+                    )
+                }
+                completationHandler(
+                    .success(cryptos.value!)
+                )
+            }
+    }
 }
+
