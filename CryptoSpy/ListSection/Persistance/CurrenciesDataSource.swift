@@ -58,7 +58,6 @@ final class CurrenciesDataSource {
             let currencies = try modelContext.fetch(FetchDescriptor<Currencies>())
             return .success(currencies)
         } catch {
-            print("error")
             return .failure(.localStorageError(cause: error.localizedDescription))
         }
     }

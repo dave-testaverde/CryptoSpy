@@ -101,4 +101,15 @@ class CryptoViewModel {
         .disposed(by: disposeBag)
     }
     
+    // MARK: - Alamofire
+    
+    func emitCryptosUpdate(cryptosResult: Result<[Crypto], GetCryptoError>) {
+        switch cryptosResult {
+            case let .success(cryptos):
+                self.cryptos = cryptos
+            case let .failure(getCryptoError):
+                crypto_alertError = getCryptoError
+        }
+    }
+    
 }
