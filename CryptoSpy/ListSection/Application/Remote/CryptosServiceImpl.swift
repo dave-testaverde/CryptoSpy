@@ -53,8 +53,12 @@ class CryptosServiceImp: CryptosService {
     
     /// Alamofire
     
+    final var viewModel: CryptoViewModel?
+    
+    @MainActor
     func completationHandler(result: Result<[Crypto], GetCryptoError>) {
         print("[completationHandler] \(result)")
+        viewModel?.emitCryptosUpdate(cryptosResult: result)
     }
     
     func fetchCryptosA(currency: String, completationHandler: @escaping (Result<[Crypto], GetCryptoError>) -> Void) {
