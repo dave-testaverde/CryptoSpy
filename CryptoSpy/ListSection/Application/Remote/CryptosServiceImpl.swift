@@ -10,12 +10,26 @@ import Alamofire
 
 class CryptosServiceImp: CryptosService {
     private let urlSession: URLSession
+    private let enableAlamofire: Bool
     
-    init(urlSession: URLSession = .shared) {
+    init(urlSession: URLSession = .shared, enableAlamofire: Bool) {
         self.urlSession = urlSession
+        self.enableAlamofire = enableAlamofire
     }
     
+    @MainActor
     func fetchCryptos(currency: String) async -> Result<[Crypto], GetCryptoError> {
+        if(self.enableAlamofire){
+            fetchCryptosAlamofire(
+                currency: currency,
+                completationHandler: completationHandler
+            )
+            return .success([])
+        }
+        return await fetchCryptosSession(currency: currency)
+    }
+    
+    func fetchCryptosSession(currency: String) async -> Result<[Crypto], GetCryptoError> {
         let urlRequest = URLRequest(url: URL(string: coingecko_get_all_crypto + currency)!)
         do {
             let (data, urlResponse) = try await urlSession.data(for: urlRequest)
@@ -61,7 +75,7 @@ class CryptosServiceImp: CryptosService {
         viewModel?.emitCryptosUpdate(cryptosResult: result)
     }
     
-    func fetchCryptosA(currency: String, completationHandler: @escaping (Result<[Crypto], GetCryptoError>) -> Void) {
+    func fetchCryptosAlamofire(currency: String, completationHandler: @escaping (Result<[Crypto], GetCryptoError>) -> Void) {
         let headers: HTTPHeaders = [ .accept("application/json") ]
         _ = AF.request(coingecko_get_all_crypto + currency, headers: headers)
             .responseDecodable(of: [Crypto].self) { cryptos in

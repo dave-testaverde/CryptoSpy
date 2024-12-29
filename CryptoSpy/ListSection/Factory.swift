@@ -11,7 +11,7 @@ import Foundation
 class Factory {
     
     @MainActor static func makeListSection() -> CryptoViewModel {
-        let cryptosService = CryptosServiceImp()
+        let cryptosService = CryptosServiceImp(enableAlamofire: false)
         let cryptosDb = CryptosDbImp()
         
         let cryptosDataSourceRemote = CryptosRemoteDataGateway(
