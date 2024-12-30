@@ -29,23 +29,6 @@ class CryptosServiceImp: CryptosService {
         return await fetchCryptosSession(currency: currency)
     }
     
-    func fetchCryptosSession(currency: String) async -> Result<[Crypto], GetCryptoError> {
-        let urlRequest = URLRequest(url: URL(string: coingecko_get_all_crypto + currency)!)
-        do {
-            let (data, urlResponse) = try await urlSession.data(for: urlRequest)
-            guard let urlResponse = urlResponse as? HTTPURLResponse else {
-                return .failure(.networkError(cause: http_response_error_cast_error))
-            }
-            guard urlResponse.statusCode == 200 else {
-                return .failure(.networkError(cause: http_response_error_was_not_200))
-            }
-            let cryptos = try JSONDecoder().decode([Crypto].self, from: data)
-            return .success(cryptos)
-        } catch {
-            return .failure(.networkError(cause: error.localizedDescription))
-        }
-    }
-    
     func fetchCurrencies() async -> Result<[Currencies], GetCurrenciesError> {
         let urlRequest = URLRequest(url: URL(string: coingecko_get_all_currencies)!)
         do {
@@ -61,6 +44,25 @@ class CryptosServiceImp: CryptosService {
             return .success([Currencies(listSupported: currencies)])
         } catch {
             print("error " + error.localizedDescription)
+            return .failure(.networkError(cause: error.localizedDescription))
+        }
+    }
+    
+    /// UrlSession
+    
+    func fetchCryptosSession(currency: String) async -> Result<[Crypto], GetCryptoError> {
+        let urlRequest = URLRequest(url: URL(string: coingecko_get_all_crypto + currency)!)
+        do {
+            let (data, urlResponse) = try await urlSession.data(for: urlRequest)
+            guard let urlResponse = urlResponse as? HTTPURLResponse else {
+                return .failure(.networkError(cause: http_response_error_cast_error))
+            }
+            guard urlResponse.statusCode == 200 else {
+                return .failure(.networkError(cause: http_response_error_was_not_200))
+            }
+            let cryptos = try JSONDecoder().decode([Crypto].self, from: data)
+            return .success(cryptos)
+        } catch {
             return .failure(.networkError(cause: error.localizedDescription))
         }
     }
@@ -86,6 +88,21 @@ class CryptosServiceImp: CryptosService {
                 }
                 completationHandler(
                     .success(cryptos.value!)
+                )
+            }
+    }
+    
+    func fetchCurrenciesAlamofire(currency: String, completationHandler: @escaping (Result<[Currencies], GetCryptoError>) -> Void) {
+        let headers: HTTPHeaders = [ .accept("application/json") ]
+        _ = AF.request(coingecko_get_all_currencies, headers: headers)
+            .responseDecodable(of: [String].self) { currencies in
+                guard currencies.response?.statusCode == 200 else {
+                    return completationHandler(
+                        .failure(.networkError(cause: http_response_error_was_not_200))
+                    )
+                }
+                completationHandler(
+                    .success([Currencies(listSupported: currencies.value!)])
                 )
             }
     }
