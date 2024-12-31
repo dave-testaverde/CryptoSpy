@@ -12,11 +12,9 @@ import SwiftData
 @MainActor
 struct RouterView: View {
     @State private var router = Router()
-    
     @State private var cryptoViewModel: CryptoViewModel = Factory.makeListSection()
     
     var body: some View {
-
         NavigationStack(path: $router.navigationPath) {
             CryptoListView()
                 .environment(router)
