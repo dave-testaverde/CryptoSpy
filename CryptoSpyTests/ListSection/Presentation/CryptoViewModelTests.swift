@@ -129,7 +129,7 @@ final class CryptoViewModelTests: XCTestCase {
     }
     
     private static func buildGetCryptosUseCases() -> GetCryptosUseCase {
-        let cryptosService = CryptosServiceImp()
+        let cryptosService = CryptosServiceImp(enableAlamofire: false)
         let cryptosDb = CryptosDbImp()
         
         let cryptosDataSourceRemote = CryptosRemoteDataGateway(

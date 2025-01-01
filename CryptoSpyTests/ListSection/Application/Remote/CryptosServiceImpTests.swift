@@ -72,7 +72,7 @@ final class CryptosServiceImpTests: XCTestCase {
         configuration.protocolClasses = [URLProtocolStub.self]
         let urlSession = URLSession(configuration: configuration)
         
-        let sut = CryptosServiceImp(urlSession: urlSession)
+        let sut = CryptosServiceImp(urlSession: urlSession, enableAlamofire: false)
         trackForMemoryLeaks(sut, file: file, line: line)
         return sut
     }
