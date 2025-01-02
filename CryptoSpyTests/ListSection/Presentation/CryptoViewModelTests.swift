@@ -33,7 +33,7 @@ final class CryptoViewModelTests: XCTestCase {
     
     @MainActor
     func testHomeViewModel_whenOnAppear_CryptosArePopulated() async {
-        let sut = makeSUT(getCryptosUseCase: Self.buildGetCryptosUseCases(), checkMemoryLeaks: false)
+        let sut = makeSUT(getCryptosUseCase: Self.buildGetCryptosUseCases())
         await sut.onAppearAction()
         XCTAssertFalse(sut.cryptos.isEmpty)
     }
