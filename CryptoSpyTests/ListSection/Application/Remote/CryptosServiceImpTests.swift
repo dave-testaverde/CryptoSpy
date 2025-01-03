@@ -66,13 +66,14 @@ final class CryptosServiceImpTests: XCTestCase {
     
     private func makeSUT(
         file: StaticString = #file,
-        line: UInt = #line
+        line: UInt = #line,
+        enableAlamofire: Bool = false
     ) -> CryptosServiceImp {
         let configuration = URLSessionConfiguration.ephemeral
         configuration.protocolClasses = [URLProtocolStub.self]
         let urlSession = URLSession(configuration: configuration)
         
-        let sut = CryptosServiceImp(urlSession: urlSession, enableAlamofire: false)
+        let sut = CryptosServiceImp(urlSession: urlSession, enableAlamofire: enableAlamofire)
         trackForMemoryLeaks(sut, file: file, line: line)
         return sut
     }

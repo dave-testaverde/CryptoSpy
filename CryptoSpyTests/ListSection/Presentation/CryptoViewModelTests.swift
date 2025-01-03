@@ -33,21 +33,36 @@ final class CryptoViewModelTests: XCTestCase {
     
     @MainActor
     func testHomeViewModel_whenOnAppear_CryptosArePopulated() async {
-        let sut = makeSUT(getCryptosUseCase: Self.buildGetCryptosUseCases())
+        let sut = makeSUT(viewModel: Self.buildCryptosViewModel())
         await sut.onAppearAction()
         XCTAssertFalse(sut.cryptos.isEmpty)
     }
     
     @MainActor
     func testHomeViewModel_whenOnAppear_CurrenciesArePopulated() async {
-        let sut = makeSUT(getCryptosUseCase: Self.buildGetCryptosUseCases())
+        let sut = makeSUT(viewModel: Self.buildCryptosViewModel())
         await sut.onAppearAction()
         XCTAssertFalse(sut.currencies.listSupported.isEmpty)
     }
     
     @MainActor
+    func testHomeViewModel_whenOnAppear_CryptosArePopulatedRx() async {
+        let expectation = XCTestExpectation(description: "Cryptos populated")
+        let sut = makeSUT(viewModel: Self.buildCryptosViewModel(enableAlamofire: true), checkMemoryLeaks: false)
+        await sut.onAppearAction()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0, execute: {
+            XCTAssertFalse(sut.cryptos.isEmpty)
+            expectation.fulfill()
+        })
+        await fulfillment(of: [expectation])
+    }
+    
+    @MainActor
     func testHomeViewModel_whenChangeCryptosStatus_Rx() async {
-        let sut = makeSUT(getCryptosUseCase: Self.buildGetCryptosUseCases(), disableRx: false, checkMemoryLeaks: false)
+        let sut = makeSUT(
+            viewModel: Self.buildCryptosViewModel(disableRx: false),
+            checkMemoryLeaks: false
+        )
         await sut.onAppearAction()
         sut.searchPattern = "doge"
         XCTAssertEqual(sut.filteredMessages.count, 1)
@@ -69,7 +84,7 @@ final class CryptoViewModelTests: XCTestCase {
         )
         let getCryptosSource = Self.buildGetCryptosRepository(cryptosRemoteSource: cryptosDataSourceRemoteStubWithError, cryptosLocalSource: cryptosDataSourceLocalStubWithError)
         let getCryptosUseCase = GetCryptosUseCase(source: getCryptosSource)
-        let sut = makeSUT(getCryptosUseCase: getCryptosUseCase)
+        let sut = makeSUT(viewModel: Self.buildCryptosViewModel())
         await sut.onAppearAction()
         XCTAssertEqual(sut.crypto_alertError, getCryptoErrorNetworkError)
     }
@@ -95,7 +110,7 @@ final class CryptoViewModelTests: XCTestCase {
             cryptosLocalSource: cryptosDataSourceLocalStubWithError
         )
         let getCryptosUseCase = GetCryptosUseCase(source: getCryptosSource)
-        let sut = makeSUT(getCryptosUseCase: getCryptosUseCase)
+        let sut = makeSUT(viewModel: Self.buildCryptosViewModel())
         await sut.onAppearAction()
         
         XCTAssertEqual(sut.currencies_alertError, getCurrenciesErrorNetworkError)
@@ -106,13 +121,12 @@ final class CryptoViewModelTests: XCTestCase {
     /// make System Under Test
     @MainActor
     private func makeSUT(
-        getCryptosUseCase: GetCryptosUseCase = getCryptosUseCase,
+        viewModel: CryptoViewModel,
         file: StaticString = #file,
         line: UInt = #line,
-        disableRx: Bool = true,
         checkMemoryLeaks: Bool = true
     ) -> CryptoViewModel {
-        let sut = CryptoViewModel(getCryptosUseCase: getCryptosUseCase, disableRx: disableRx)
+        let sut = viewModel
         if(checkMemoryLeaks){
             trackForMemoryLeaks(sut, file: file, line: line)
         }
@@ -128,8 +142,12 @@ final class CryptoViewModelTests: XCTestCase {
             cryptosLocalSource: cryptosLocalSource)
     }
     
-    private static func buildGetCryptosUseCases() -> GetCryptosUseCase {
-        let cryptosService = CryptosServiceImp(enableAlamofire: false)
+    @MainActor
+    private static func buildCryptosViewModel(
+        enableAlamofire: Bool = false,
+        disableRx: Bool = true
+    ) -> CryptoViewModel {
+        let cryptosService = CryptosServiceImp(enableAlamofire: enableAlamofire)
         let cryptosDb = CryptosDbImp()
         
         let cryptosDataSourceRemote = CryptosRemoteDataGateway(
@@ -144,7 +162,18 @@ final class CryptoViewModelTests: XCTestCase {
             cryptosLocalSource: cryptosDataSourceLocal
         )
         
-        return GetCryptosUseCase(source: getCryptosSource)
+        let getCryptosUseCase = GetCryptosUseCase(source: getCryptosSource)
+        
+        let cryptoViewModel = CryptoViewModel(
+            getCryptosUseCase: getCryptosUseCase,
+            disableRx: disableRx
+        )
+        
+        if(enableAlamofire){
+            cryptosService.viewModel = cryptoViewModel
+        }
+        
+        return cryptoViewModel
     }
     
 }
