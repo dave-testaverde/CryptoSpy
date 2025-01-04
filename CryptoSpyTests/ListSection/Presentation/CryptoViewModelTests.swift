@@ -60,7 +60,7 @@ final class CryptoViewModelTests: XCTestCase {
     @MainActor
     func testHomeViewModel_whenChangeCryptosStatus_Rx() async {
         let sut = makeSUT(
-            viewModel: Self.buildCryptosViewModel(disableRx: false),
+            viewModel: Self.buildCryptosViewModel(enableRx: true),
             checkMemoryLeaks: false
         )
         await sut.onAppearAction()
@@ -145,7 +145,7 @@ final class CryptoViewModelTests: XCTestCase {
     @MainActor
     private static func buildCryptosViewModel(
         enableAlamofire: Bool = false,
-        disableRx: Bool = true
+        enableRx: Bool = true
     ) -> CryptoViewModel {
         let cryptosService = CryptosServiceImp(enableAlamofire: enableAlamofire)
         let cryptosDb = CryptosDbImp()
@@ -166,7 +166,7 @@ final class CryptoViewModelTests: XCTestCase {
         
         let cryptoViewModel = CryptoViewModel(
             getCryptosUseCase: getCryptosUseCase,
-            disableRx: disableRx
+            enableRx: enableRx
         )
         
         if(enableAlamofire){

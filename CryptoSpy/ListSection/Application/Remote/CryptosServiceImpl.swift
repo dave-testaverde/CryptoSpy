@@ -22,14 +22,27 @@ class CryptosServiceImp: CryptosService {
         if(self.enableAlamofire){
             fetchCryptosAlamofire(
                 currency: currency,
-                completationHandler: completationHandler
+                completationHandler: completationHandlerCrypto
             )
             return .success([])
         }
         return await fetchCryptosSession(currency: currency)
     }
     
+    @MainActor
     func fetchCurrencies() async -> Result<[Currencies], GetCurrenciesError> {
+        if(self.enableAlamofire){
+            fetchCurrenciesAlamofire(
+                completationHandler: completationHandlerCurrencies
+            )
+            return .success([])
+        }
+        return await fetchCurrenciesSession()
+    }
+    
+    /// UrlSession
+    
+    func fetchCurrenciesSession() async -> Result<[Currencies], GetCurrenciesError> {
         let urlRequest = URLRequest(url: URL(string: coingecko_get_all_currencies)!)
         do {
             let (data, urlResponse) = try await urlSession.data(for: urlRequest)
@@ -47,8 +60,6 @@ class CryptosServiceImp: CryptosService {
             return .failure(.networkError(cause: error.localizedDescription))
         }
     }
-    
-    /// UrlSession
     
     func fetchCryptosSession(currency: String) async -> Result<[Crypto], GetCryptoError> {
         let urlRequest = URLRequest(url: URL(string: coingecko_get_all_crypto + currency)!)
@@ -72,8 +83,13 @@ class CryptosServiceImp: CryptosService {
     final var viewModel: CryptoViewModel?
     
     @MainActor
-    func completationHandler(result: Result<[Crypto], GetCryptoError>) {
-        print("[completationHandler] \(result)")
+    func completationHandlerCurrencies(result: Result<[Currencies], GetCurrenciesError>) -> Void {
+        print("[completationHandlerCurrencies] \(result)")
+    }
+    
+    @MainActor
+    func completationHandlerCrypto(result: Result<[Crypto], GetCryptoError>) -> Void {
+        print("[completationHandlerCrypto] \(result)")
         viewModel?.emitCryptosUpdate(cryptosResult: result)
     }
     
@@ -92,7 +108,7 @@ class CryptosServiceImp: CryptosService {
             }
     }
     
-    func fetchCurrenciesAlamofire(currency: String, completationHandler: @escaping (Result<[Currencies], GetCryptoError>) -> Void) {
+    func fetchCurrenciesAlamofire(completationHandler: @escaping (Result<[Currencies], GetCurrenciesError>) -> Void) {
         let headers: HTTPHeaders = [ .accept("application/json") ]
         _ = AF.request(coingecko_get_all_currencies, headers: headers)
             .responseDecodable(of: [String].self) { currencies in

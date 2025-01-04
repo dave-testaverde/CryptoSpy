@@ -28,7 +28,7 @@ class Factory {
         
         let getCryptosUseCase = GetCryptosUseCase(source: getCryptosSource)
         
-        let cryptoViewModel = CryptoViewModel(getCryptosUseCase: getCryptosUseCase, disableRx: false)
+        let cryptoViewModel = CryptoViewModel(getCryptosUseCase: getCryptosUseCase)
         
         /// Alamofire
         cryptosService.viewModel = cryptoViewModel

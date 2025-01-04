@@ -42,13 +42,15 @@ class CryptoViewModel {
         }
     }
 
-    init(getCryptosUseCase: GetCryptosUseCase, disableRx: Bool) {
+    init(getCryptosUseCase: GetCryptosUseCase, enableRx: Bool = true) {
         self.getCryptosUseCase = getCryptosUseCase
         self.currency = INIT_CURRENCY
-        if(!disableRx){
+        if(enableRx){
             initRxComponents()
         }
     }
+    
+    deinit {}
     
     private func getCryptos() async {
         let cryptosResult = await getCryptosUseCase.getCryptos(currency: currency)
