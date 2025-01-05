@@ -35,7 +35,7 @@ class CryptosServiceImp: CryptosService {
             fetchCurrenciesAlamofire(
                 completationHandler: completationHandlerCurrencies
             )
-            return .success([])
+            return .success([Currencies(listSupported: [])])
         }
         return await fetchCurrenciesSession()
     }
@@ -85,6 +85,7 @@ class CryptosServiceImp: CryptosService {
     @MainActor
     func completationHandlerCurrencies(result: Result<[Currencies], GetCurrenciesError>) -> Void {
         print("[completationHandlerCurrencies] \(result)")
+        viewModel?.emitCurrenciesUpdate(currenciesResult: result)
     }
     
     @MainActor

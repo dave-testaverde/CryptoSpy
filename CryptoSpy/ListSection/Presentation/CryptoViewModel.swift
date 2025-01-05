@@ -114,4 +114,13 @@ class CryptoViewModel {
         }
     }
     
+    func emitCurrenciesUpdate(currenciesResult: Result<[Currencies], GetCurrenciesError>) {
+        switch currenciesResult {
+            case let .success(currencies):
+                self.currencies = currencies.first ?? Currencies(listSupported: [])
+            case let .failure(GetCurrenciesError):
+                currencies_alertError = GetCurrenciesError
+        }
+    }
+    
 }
