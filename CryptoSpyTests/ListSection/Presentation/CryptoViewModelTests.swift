@@ -58,6 +58,18 @@ final class CryptoViewModelTests: XCTestCase {
     }
     
     @MainActor
+    func testHomeViewModel_whenOnAppear_CurrenciesArePopulatedRx() async {
+        let expectation = XCTestExpectation(description: "Currencies populated")
+        let sut = makeSUT(viewModel: Self.buildCryptosViewModel(enableAlamofire: true), checkMemoryLeaks: false)
+        await sut.onAppearAction()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0, execute: {
+            XCTAssertFalse(sut.currencies.listSupported.isEmpty)
+            expectation.fulfill()
+        })
+        await fulfillment(of: [expectation])
+    }
+    
+    @MainActor
     func testHomeViewModel_whenChangeCryptosStatus_Rx() async {
         let sut = makeSUT(
             viewModel: Self.buildCryptosViewModel(enableRx: true),
