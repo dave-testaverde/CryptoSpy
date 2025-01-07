@@ -97,15 +97,27 @@ class CryptosServiceImp: CryptosService {
     func fetchCryptosAlamofire(currency: String, completationHandler: @escaping (Result<[Crypto], GetCryptoError>) -> Void) {
         let headers: HTTPHeaders = [ .accept("application/json") ]
         _ = AF.request(coingecko_get_all_crypto + currency, headers: headers)
-            .responseDecodable(of: [Crypto].self) { cryptos in
-                guard cryptos.response?.statusCode == 200 else {
-                    return completationHandler(
-                        .failure(.networkError(cause: http_response_error_was_not_200))
-                    )
+            .validate(statusCode: 200..<500)
+            .responseDecodable(of: [Crypto].self) { response in
+                switch response.result {
+                    case .success(let value):
+                        completationHandler(
+                            .success(response.value!)
+                        )
+                    case .failure(let error):
+                        if let afError = error.asAFError {
+                            switch afError {
+                                case .invalidURL(let url):
+                                    return completationHandler(
+                                        .failure(.networkError(cause: http_response_error_invalid_url))
+                                    )
+                                default:
+                                    return completationHandler(
+                                        .failure(.networkError(cause: http_response_error_was_not_200))
+                                    )
+                            }
+                        }
                 }
-                completationHandler(
-                    .success(cryptos.value!)
-                )
             }
     }
     
