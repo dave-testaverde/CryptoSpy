@@ -21,8 +21,7 @@ class CryptosServiceImp: CryptosService {
     func fetchCryptos(currency: String) async -> Result<[Crypto], GetCryptoError> {
         if(self.enableAlamofire){
             fetchCryptosAlamofire(
-                currency: currency,
-                completationHandler: completationHandlerCrypto
+                currency: currency
             )
             return .success([])
         }
@@ -94,29 +93,16 @@ class CryptosServiceImp: CryptosService {
         viewModel?.emitCryptosUpdate(cryptosResult: result)
     }
     
-    func fetchCryptosAlamofire(currency: String, completationHandler: @escaping (Result<[Crypto], GetCryptoError>) -> Void) {
+    func fetchCryptosAlamofire(currency: String) {
         let headers: HTTPHeaders = [ .accept("application/json") ]
         _ = AF.request(coingecko_get_all_crypto + currency, headers: headers)
             .validate(statusCode: 200..<500)
-            .responseDecodable(of: [Crypto].self) { response in
-                switch response.result {
-                    case .success(let value):
-                        completationHandler(
-                            .success(response.value!)
-                        )
-                    case .failure(let error):
-                        if let afError = error.asAFError {
-                            switch afError {
-                                case .invalidURL(let url):
-                                    return completationHandler(
-                                        .failure(.networkError(cause: http_response_error_invalid_url))
-                                    )
-                                default:
-                                    return completationHandler(
-                                        .failure(.networkError(cause: http_response_error_was_not_200))
-                                    )
-                            }
-                        }
+            .responseDecodable(of: [Crypto].self) { [unowned self] response in
+                Task {
+                    await onResponse(
+                        response: response,
+                        completationHandler: completationHandlerCrypto
+                    )
                 }
             }
     }
