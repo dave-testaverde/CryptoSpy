@@ -9,9 +9,9 @@ import Alamofire
 
 extension CryptosServiceImp {
     @MainActor
-    func onResponse(
-        response: DataResponse<[Crypto], AFError>,
-        completationHandler: @MainActor @escaping (Result<[Crypto], GetCryptoError>) -> Void
+    func onResponse<T>(
+        response: DataResponse<T, AFError>,
+        completationHandler: @MainActor @escaping (Result<T, GetServiceError>) -> Void
     ){
         switch response.result {
             case .success(let value):

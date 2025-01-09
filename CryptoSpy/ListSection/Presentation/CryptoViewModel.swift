@@ -17,6 +17,9 @@ class CryptoViewModel {
     var crypto_alertError: GetCryptoError?
     var currencies_alertError: GetCurrenciesError?
     
+    /// only for Alamofire
+    var service_alertError: GetServiceError?
+    
     var cryptoSelected: Crypto?
     
     let getCryptosUseCase: GetCryptosUseCase
@@ -105,12 +108,12 @@ class CryptoViewModel {
     
     // MARK: - Alamofire
     
-    func emitCryptosUpdate(cryptosResult: Result<[Crypto], GetCryptoError>) {
+    func emitCryptosUpdate(cryptosResult: Result<[Crypto], GetServiceError>) {
         switch cryptosResult {
             case let .success(cryptos):
                 self.cryptos = cryptos
-            case let .failure(getCryptoError):
-                crypto_alertError = getCryptoError
+            case let .failure(getServiceError):
+                service_alertError = getServiceError
         }
     }
     

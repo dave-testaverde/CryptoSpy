@@ -88,7 +88,7 @@ class CryptosServiceImp: CryptosService {
     }
     
     @MainActor
-    func completationHandlerCrypto(result: Result<[Crypto], GetCryptoError>) -> Void {
+    func completationHandlerCrypto(result: Result<[Crypto], GetServiceError>) -> Void {
         print("[completationHandlerCrypto] \(result)")
         viewModel?.emitCryptosUpdate(cryptosResult: result)
     }
