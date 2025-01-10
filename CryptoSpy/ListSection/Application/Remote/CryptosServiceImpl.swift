@@ -31,9 +31,7 @@ class CryptosServiceImp: CryptosService {
     @MainActor
     func fetchCurrencies() async -> Result<[Currencies], GetCurrenciesError> {
         if(self.enableAlamofire){
-            fetchCurrenciesAlamofire(
-                completationHandler: completationHandlerCurrencies
-            )
+            fetchCurrenciesAlamofire()
             return .success([Currencies(listSupported: [])])
         }
         return await fetchCurrenciesSession()
@@ -82,7 +80,7 @@ class CryptosServiceImp: CryptosService {
     final var viewModel: CryptoViewModel?
     
     @MainActor
-    func completationHandlerCurrencies(result: Result<[Currencies], GetCurrenciesError>) -> Void {
+    func completationHandlerCurrencies(result: Result<[String], GetServiceError>) -> Void {
         print("[completationHandlerCurrencies] \(result)")
         viewModel?.emitCurrenciesUpdate(currenciesResult: result)
     }
@@ -107,18 +105,17 @@ class CryptosServiceImp: CryptosService {
             }
     }
     
-    func fetchCurrenciesAlamofire(completationHandler: @escaping (Result<[Currencies], GetCurrenciesError>) -> Void) {
+    func fetchCurrenciesAlamofire() {
         let headers: HTTPHeaders = [ .accept("application/json") ]
         _ = AF.request(coingecko_get_all_currencies, headers: headers)
-            .responseDecodable(of: [String].self) { currencies in
-                guard currencies.response?.statusCode == 200 else {
-                    return completationHandler(
-                        .failure(.networkError(cause: http_response_error_was_not_200))
+            .validate(statusCode: 200..<500)
+            .responseDecodable(of: [String].self) { [unowned self] response in
+                Task {
+                    await onResponse(
+                        response: response,
+                        completationHandler: completationHandlerCurrencies
                     )
                 }
-                completationHandler(
-                    .success([Currencies(listSupported: currencies.value!)])
-                )
             }
     }
 }
