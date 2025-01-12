@@ -26,6 +26,18 @@ extension CryptosServiceImp {
                                 .failure(.networkError(cause: http_response_error_invalid_url+"[\(url)]"))
                             )
                             break
+                        case .responseSerializationFailed(let reason):
+                            debugPrint("Response serialization failed: \(error.localizedDescription)")
+                            debugPrint("Failure Reason: \(reason)")
+                            completationHandler(
+                                .failure(.networkError(cause: http_response_error_serialization_failed))
+                            )
+                            break
+                        case .sessionInvalidated(let error):
+                            debugPrint("Session Invalidated, description: \(error?.localizedDescription ?? "")")
+                            completationHandler(
+                                .failure(.networkError(cause: http_response_error_session_invalidated))
+                            )
                         default:
                             completationHandler(
                                 .failure(.networkError(cause: http_response_error_was_not_200))

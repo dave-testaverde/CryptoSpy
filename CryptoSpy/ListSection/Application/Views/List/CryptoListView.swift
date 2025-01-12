@@ -84,6 +84,9 @@ struct CryptoListView: View {
                 .sheet(item: $viewModel.crypto_alertError) { error in
                     Text(error.localizedDescription)
                 }
+                .sheet(item: $viewModel.currencies_alertError) { error in
+                    Text(error.localizedDescription)
+                }
                 .scrollContentBackground(.hidden)
                 .navigationTitle("Cryptos")
                 .navigationBarTitle(Text("Cryptos"))
