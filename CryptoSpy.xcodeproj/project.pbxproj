@@ -10,6 +10,7 @@
 		2E7BD7F3B2F48A8DEFBE942D /* Pods_CryptoSpyTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 232073AADD2B17127A87D13C /* Pods_CryptoSpyTests.framework */; };
 		551CB52F2D2ED5B200115792 /* CryptosServiceImpl+Exts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 551CB52E2D2ED5AA00115792 /* CryptosServiceImpl+Exts.swift */; };
 		551CB5312D301D7400115792 /* GetServiceError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 551CB5302D301D6800115792 /* GetServiceError.swift */; };
+		551CB5332D357E7D00115792 /* ConnectionStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 551CB5322D357E3700115792 /* ConnectionStatus.swift */; };
 		55619EDB2C5A8231007D52A9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 55619EDA2C5A8231007D52A9 /* Assets.xcassets */; };
 		55619EDE2C5A8231007D52A9 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 55619EDD2C5A8231007D52A9 /* Preview Assets.xcassets */; };
 		55619EE82C5A8232007D52A9 /* CryptoSpyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55619EE72C5A8232007D52A9 /* CryptoSpyTests.swift */; };
@@ -80,6 +81,7 @@
 		50D972E79FB086BABC0246DF /* Pods-CryptoSpy.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CryptoSpy.release.xcconfig"; path = "Target Support Files/Pods-CryptoSpy/Pods-CryptoSpy.release.xcconfig"; sourceTree = "<group>"; };
 		551CB52E2D2ED5AA00115792 /* CryptosServiceImpl+Exts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CryptosServiceImpl+Exts.swift"; sourceTree = "<group>"; };
 		551CB5302D301D6800115792 /* GetServiceError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetServiceError.swift; sourceTree = "<group>"; };
+		551CB5322D357E3700115792 /* ConnectionStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionStatus.swift; sourceTree = "<group>"; };
 		55619ED32C5A822F007D52A9 /* CryptoSpy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CryptoSpy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		55619EDA2C5A8231007D52A9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		55619EDD2C5A8231007D52A9 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
@@ -377,6 +379,7 @@
 		55619F792C5A968D007D52A9 /* Network */ = {
 			isa = PBXGroup;
 			children = (
+				551CB5322D357E3700115792 /* ConnectionStatus.swift */,
 				551CB52E2D2ED5AA00115792 /* CryptosServiceImpl+Exts.swift */,
 				55619F7A2C5A971B007D52A9 /* Api.swift */,
 				55619F7C2C5A9A48007D52A9 /* ErrorHttp.swift */,
@@ -769,6 +772,7 @@
 				551CB5312D301D7400115792 /* GetServiceError.swift in Sources */,
 				55619F622C5A8A1B007D52A9 /* CryptosDbImp.swift in Sources */,
 				55619F5F2C5A8A1B007D52A9 /* GetCryptoError.swift in Sources */,
+				551CB5332D357E7D00115792 /* ConnectionStatus.swift in Sources */,
 				55619FEB2C758532007D52A9 /* GetCurrenciesError.swift in Sources */,
 				55619FDC2C62AD90007D52A9 /* Route.swift in Sources */,
 				55619FE02C62AE61007D52A9 /* RouterView.swift in Sources */,
