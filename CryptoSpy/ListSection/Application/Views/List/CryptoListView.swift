@@ -47,6 +47,9 @@ struct CryptoListView: View {
                 }
             }
             .frame(width: 350)
+            HStack{
+                Text(viewModel.connectionStatus.stateLabel)
+            }.padding(.vertical, 10)
             VStack{
                 List {
                     ForEach(viewModel.getCryptosList().filter { crypto in
@@ -88,8 +91,12 @@ struct CryptoListView: View {
                     Text(error.localizedDescription)
                 }
                 .scrollContentBackground(.hidden)
-                .navigationTitle("Cryptos")
-                .navigationBarTitle(Text("Cryptos"))
+                .navigationTitle(
+                    Text("Cryptos")
+                )
+                .navigationBarTitle(
+                    Text("Cryptos")
+                )
                 .task {
                     if(viewModel.cryptos.isEmpty){
                         await viewModel.onAppearAction()
