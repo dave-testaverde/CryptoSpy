@@ -47,11 +47,12 @@ struct CryptoListView: View {
                 }
             }
             .frame(width: 350)
-            HStack{
-                Text(viewModel.connectionStatus.stateLabel)
-            }.padding(.vertical, 10)
             VStack{
                 List {
+                    HStack{
+                        Text("\(viewModel.connectionStatus.stateLabel) for api.coingecko.com")
+                    }
+                    .padding(.top, 10)
                     ForEach(viewModel.getCryptosList().filter { crypto in
                         crypto.favourites || !showFavourites
                     }) { crypto in

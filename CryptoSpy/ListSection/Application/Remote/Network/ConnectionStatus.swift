@@ -9,10 +9,13 @@ import Alamofire
 
 @Observable
 class ConnectionStatus {
-    final let manager = NetworkReachabilityManager(host: host_for_connection_test)
+    private static let CONNECTION_STATUS_ENDPOINT = "www.coingecko.com"
+    private static let DEFAULT_STATUS = "Offline"
+    
+    final let manager = NetworkReachabilityManager(host: CONNECTION_STATUS_ENDPOINT)
     
     var state: NetworkReachabilityManager.NetworkReachabilityStatus = .unknown
-    var stateLabel: String = "Offline"
+    var stateLabel: String = DEFAULT_STATUS
     
     init(){
         manager?.startListening { [self] status in

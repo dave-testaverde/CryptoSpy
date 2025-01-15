@@ -11,7 +11,7 @@ import RxSwift
 @MainActor
 @Observable
 class CryptoViewModel {
-    final let connectionStatus = ConnectionStatus()
+    final var connectionStatus = ConnectionStatus()
     
     final let INIT_CURRENCY = "usd"
     
