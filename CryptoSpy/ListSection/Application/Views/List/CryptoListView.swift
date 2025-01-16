@@ -51,6 +51,7 @@ struct CryptoListView: View {
                 List {
                     HStack{
                         Text("\(viewModel.connectionStatus.stateLabel) for api.coingecko.com")
+                            .foregroundStyle(viewModel.connectionStatus.manager!.isReachable ? .green : .red)
                     }
                     .padding(.top, 10)
                     ForEach(viewModel.getCryptosList().filter { crypto in
