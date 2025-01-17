@@ -58,6 +58,21 @@ final class CryptoViewModelTests: XCTestCase {
     }
     
     @MainActor
+    func testHomeViewModel_whenOnAppear_ConnectionEstablished() async {
+        let expectation = XCTestExpectation(description: "Connection Established!")
+        let sut = makeSUT(viewModel: Self.buildCryptosViewModel(enableAlamofire: true), checkMemoryLeaks: false)
+        await sut.onAppearAction()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0, execute: {
+            XCTAssertTrue(
+                (sut.connectionStatus.state != .notReachable) &&
+                (sut.connectionStatus.state != .unknown)
+            )
+            expectation.fulfill()
+        })
+        await fulfillment(of: [expectation])
+    }
+    
+    @MainActor
     func testHomeViewModel_whenOnAppear_CurrenciesArePopulatedRx() async {
         let expectation = XCTestExpectation(description: "Currencies populated")
         let sut = makeSUT(viewModel: Self.buildCryptosViewModel(enableAlamofire: true), checkMemoryLeaks: false)
