@@ -19,9 +19,12 @@ class ConnectionStatus {
     
     init(){
         manager?.startListening { [self] status in
-            print("Network Status Changed: \(status)")
-            state = status
-            stateLabel = (status == .unknown || status == .notReachable) ? "Offline" : "Online"
+            update(by: status)
         }
+    }
+    
+    func update(by status: NetworkReachabilityManager.NetworkReachabilityStatus){
+        state = status
+        stateLabel = (status == .unknown || status == .notReachable) ? "Offline" : "Online"
     }
 }
