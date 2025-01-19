@@ -73,6 +73,18 @@ final class CryptoViewModelTests: XCTestCase {
     }
     
     @MainActor
+    func testHomeViewModel_whenOnAppear_ConnectionNotReachable() async {
+        let expectation = XCTestExpectation(description: "Connection Not Reachable!")
+        let sut = makeSUT(viewModel: Self.buildCryptosViewModel(enableAlamofire: true, failConnection: true), checkMemoryLeaks: false)
+        await sut.onAppearAction()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0, execute: {
+            XCTAssertTrue(sut.connectionStatus.state == .notReachable)
+            expectation.fulfill()
+        })
+        await fulfillment(of: [expectation])
+    }
+    
+    @MainActor
     func testHomeViewModel_whenOnAppear_CurrenciesArePopulatedRx() async {
         let expectation = XCTestExpectation(description: "Currencies populated")
         let sut = makeSUT(viewModel: Self.buildCryptosViewModel(enableAlamofire: true), checkMemoryLeaks: false)
@@ -172,7 +184,8 @@ final class CryptoViewModelTests: XCTestCase {
     @MainActor
     private static func buildCryptosViewModel(
         enableAlamofire: Bool = false,
-        enableRx: Bool = true
+        enableRx: Bool = true,
+        failConnection: Bool = false
     ) -> CryptoViewModel {
         let cryptosService = CryptosServiceImp(enableAlamofire: enableAlamofire)
         let cryptosDb = CryptosDbImp()
@@ -193,7 +206,8 @@ final class CryptoViewModelTests: XCTestCase {
         
         let cryptoViewModel = CryptoViewModel(
             getCryptosUseCase: getCryptosUseCase,
-            enableRx: enableRx
+            enableRx: enableRx,
+            failConnection: failConnection
         )
         
         if(enableAlamofire){

@@ -47,7 +47,11 @@ class CryptoViewModel {
         }
     }
 
-    init(getCryptosUseCase: GetCryptosUseCase, enableRx: Bool = true) {
+    init(getCryptosUseCase: GetCryptosUseCase, enableRx: Bool = true, failConnection: Bool = false) {
+        self.connectionStatus = ConnectionStatus(
+            state: failConnection ? .notReachable : .unknown,
+            failConnection: failConnection
+        )
         self.getCryptosUseCase = getCryptosUseCase
         self.currency = INIT_CURRENCY
         if(enableRx){

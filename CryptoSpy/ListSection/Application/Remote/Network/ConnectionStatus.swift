@@ -14,12 +14,20 @@ class ConnectionStatus {
     
     final let manager = NetworkReachabilityManager(host: CONNECTION_STATUS_ENDPOINT)
     
-    var state: NetworkReachabilityManager.NetworkReachabilityStatus = .unknown
-    var stateLabel: String = DEFAULT_STATUS
+    var state: NetworkReachabilityManager.NetworkReachabilityStatus
+    var stateLabel: String
     
-    init(){
-        manager?.startListening { [self] status in
-            update(by: status)
+    init(
+        state: NetworkReachabilityManager.NetworkReachabilityStatus = .unknown,
+        failConnection: Bool = false
+    ){
+        self.state = state
+        self.stateLabel = (state == .unknown || state == .notReachable) ? "Offline" : "Online"
+        
+        if !failConnection {
+            manager?.startListening { [self] status in
+                update(by: status)
+            }
         }
     }
     
