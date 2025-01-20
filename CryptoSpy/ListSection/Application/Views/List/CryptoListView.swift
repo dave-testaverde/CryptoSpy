@@ -50,7 +50,7 @@ struct CryptoListView: View {
             VStack{
                 List {
                     HStack{
-                        Text("\(viewModel.connectionStatus.stateLabel) for api.coingecko.com")
+                        Text("\(viewModel.connectionStatus.showNetState()) for api.coingecko.com")
                             .foregroundStyle(viewModel.connectionStatus.manager!.isReachable ? .green : .red)
                     }
                     .padding(.top, 10)
